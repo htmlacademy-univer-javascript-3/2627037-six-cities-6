@@ -1,4 +1,4 @@
-import '../../markup/css/main.css';
+import '../../../markup/css/main.css';
 
 export function MainEmpty() {
   return (
@@ -28,7 +28,7 @@ export function MainEmpty() {
               <div className="header__wrapper">
                 <div className="header__left">
                   <a className="header__logo-link header__logo-link--active">
-                    <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                    <img className="header__logo" src="../../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
                   </a>
                 </div>
                 <nav className="header__nav">

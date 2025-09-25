@@ -1,20 +1,7 @@
-import Card from './Card.tsx';
+import Card from '../Card/Card.tsx';
+import {AppProps} from '../App/App.tsx';
 
-export type AppProps = {
-  cardsData: CardData[];
-}
-export type CardData = {
-  id: number;
-  image: string;
-  isPremium: boolean;
-  price: number;
-  header: string;
-  type: string;
-  isFavorite: boolean;
-  rating: number;
-}
-
-export default function App({cardsData}: AppProps) {
+export default function Main({cardsData}: AppProps) {
   return (
     <html lang="en">
       <head>
@@ -42,7 +29,7 @@ export default function App({cardsData}: AppProps) {
               <div className="header__wrapper">
                 <div className="header__left">
                   <a className="header__logo-link header__logo-link--active">
-                    <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                    <img className="header__logo" src="../../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
                   </a>
                 </div>
                 <nav className="header__nav">

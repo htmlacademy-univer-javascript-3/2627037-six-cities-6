@@ -1,4 +1,4 @@
-import {CardData} from './components/App.tsx';
+import {CardData} from './components/App/App.tsx';
 
 export const CardsData : CardData[] = [
   {

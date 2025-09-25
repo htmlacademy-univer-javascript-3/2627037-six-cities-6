@@ -1,4 +1,4 @@
-import '../../markup/css/main.css';
+import '../../../markup/css/main.css';
 
 export function FavoritesEmpty() {
   return (
@@ -28,7 +28,7 @@ export function FavoritesEmpty() {
               <div className="header__wrapper">
                 <div className="header__left">
                   <a className="header__logo-link" href="main.html">
-                    <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                    <img className="header__logo" src="../../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
                   </a>
                 </div>
                 <nav className="header__nav">
@@ -67,7 +67,7 @@ export function FavoritesEmpty() {
           </main>
           <footer className="footer">
             <a className="footer__logo-link" href="main.html">
-              <img className="footer__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
+              <img className="footer__logo" src="../../../markup/img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
             </a>
           </footer>
         </div>

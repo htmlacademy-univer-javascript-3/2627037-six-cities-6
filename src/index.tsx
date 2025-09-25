@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App.tsx';
+import App from './components/App/App.tsx';
 import {CardsData} from './const.ts';
 
 const root = ReactDOM.createRoot(

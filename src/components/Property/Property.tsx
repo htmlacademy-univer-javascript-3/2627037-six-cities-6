@@ -1,4 +1,4 @@
-import '../../markup/css/main.css';
+import '../../../markup/css/main.css';
 
 export function Property() {
   return (
@@ -22,7 +22,7 @@ export function Property() {
             <div className="header__wrapper">
               <div className="header__left">
                 <a className="header__logo-link" href="main.html">
-                  <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                  <img className="header__logo" src="../../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
                 </a>
               </div>
               <nav className="header__nav">
@@ -50,22 +50,22 @@ export function Property() {
             <div className="property__gallery-container container">
               <div className="property__gallery">
                 <div className="property__image-wrapper">
-                  <img className="property__image" src="../../markup/img/room.jpg" alt="Photo studio"></img>
+                  <img className="property__image" src="../../../markup/img/room.jpg" alt="Photo studio"></img>
                 </div>
                 <div className="property__image-wrapper">
-                  <img className="property__image" src="../../markup/img/apartment-01.jpg" alt="Photo studio"></img>
+                  <img className="property__image" src="../../../markup/img/apartment-01.jpg" alt="Photo studio"></img>
                 </div>
                 <div className="property__image-wrapper">
-                  <img className="property__image" src="../../markup/img/apartment-02.jpg" alt="Photo studio"></img>
+                  <img className="property__image" src="../../../markup/img/apartment-02.jpg" alt="Photo studio"></img>
                 </div>
                 <div className="property__image-wrapper">
-                  <img className="property__image" src="../../markup/img/apartment-03.jpg" alt="Photo studio"></img>
+                  <img className="property__image" src="../../../markup/img/apartment-03.jpg" alt="Photo studio"></img>
                 </div>
                 <div className="property__image-wrapper">
-                  <img className="property__image" src="../../markup/img/studio-01.jpg" alt="Photo studio"></img>
+                  <img className="property__image" src="../../../markup/img/studio-01.jpg" alt="Photo studio"></img>
                 </div>
                 <div className="property__image-wrapper">
-                  <img className="property__image" src="../../markup/img/apartment-01.jpg" alt="Photo studio"></img>
+                  <img className="property__image" src="../../../markup/img/apartment-01.jpg" alt="Photo studio"></img>
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@ export function Property() {
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
                     <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src="../../markup/img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"></img>
+                      <img className="property__avatar user__avatar" src="../../../markup/img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"></img>
                     </div>
                     <span className="property__user-name">Angelina</span>
                     <span className="property__user-status">Pro</span>
@@ -168,7 +168,7 @@ export function Property() {
                     <li className="reviews__item">
                       <div className="reviews__user user">
                         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src="../../markup/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"></img>
+                          <img className="reviews__avatar user__avatar" src="../../../markup/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"></img>
                         </div>
                         <span className="reviews__user-name">Max</span>
                       </div>
@@ -253,7 +253,7 @@ export function Property() {
                 <article className="near-places__card place-card">
                   <div className="near-places__image-wrapper place-card__image-wrapper">
                     <a href="#">
-                      <img className="place-card__image" src="../../markup/img/room.jpg" width="260" height="200" alt="Place image"></img>
+                      <img className="place-card__image" src="../../../markup/img/room.jpg" width="260" height="200" alt="Place image"></img>
                     </a>
                   </div>
                   <div className="place-card__info">
@@ -284,7 +284,7 @@ export function Property() {
                 <article className="near-places__card place-card">
                   <div className="near-places__image-wrapper place-card__image-wrapper">
                     <a href="#">
-                      <img className="place-card__image" src="../../markup/img/apartment-02.jpg" width="260" height="200" alt="Place image"></img>
+                      <img className="place-card__image" src="../../../markup/img/apartment-02.jpg" width="260" height="200" alt="Place image"></img>
                     </a>
                   </div>
                   <div className="place-card__info">
@@ -318,7 +318,7 @@ export function Property() {
                   </div>
                   <div className="near-places__image-wrapper place-card__image-wrapper">
                     <a href="#">
-                      <img className="place-card__image" src="../../markup/img/apartment-03.jpg" width="260" height="200" alt="Place image"></img>
+                      <img className="place-card__image" src="../../../markup/img/apartment-03.jpg" width="260" height="200" alt="Place image"></img>
                     </a>
                   </div>
                   <div className="place-card__info">
