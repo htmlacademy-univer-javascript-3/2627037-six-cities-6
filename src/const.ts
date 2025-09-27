@@ -41,3 +41,13 @@ export const CardsData : CardData[] = [
     isFavorite: false,
     rating: 5,
   }];
+
+export enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Property = '/offer/:id',
+  NotFound = '*'
+}
+
+export const isAuthorized = true;
