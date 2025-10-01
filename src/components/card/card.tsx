@@ -1,5 +1,5 @@
 import '../../../markup/css/main.css';
-import {CardData} from '../App/App.tsx';
+import {CardData} from '../app/app.tsx';
 
 export default function Card(cardData: CardData) {
   return (

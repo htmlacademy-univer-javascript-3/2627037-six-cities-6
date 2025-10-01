@@ -1,11 +1,11 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, CardsData, isAuthorized} from '../../const.ts';
-import Main from '../Main/Main.tsx';
-import {Login} from '../Login/Login.tsx';
-import {Favorites} from '../Favorites/Favorites.tsx';
-import {Property} from '../Property/Property.tsx';
-import {NotFound} from '../NotFound/NotFound.tsx';
-import PrivateRoute from '../PrivateRoute/PrivateRoute.tsx';
+import Main from '../main/main.tsx';
+import {Login} from '../login/login.tsx';
+import {Favorites} from '../favorites/favorites.tsx';
+import {Property} from '../property/property.tsx';
+import {NotFound} from '../not-found/not-found.tsx';
+import PrivateRoute from '../private-route/private-route.tsx';
 
 export type AppProps = {
   cardsData: CardData[];
