@@ -1,11 +1,7 @@
-import {useNavigate} from 'react-router-dom';
-import '../../../markup/css/main.css';
+import Card from '../card/card.tsx';
+import {AppProps} from '../app/app.tsx';
 
-function useNavigateHome() {
-  useNavigate()('/');
-}
-
-export function NotFound() {
+export default function Main({cardsData}: AppProps) {
   return (
     <html lang="en">
       <head>
@@ -33,7 +29,7 @@ export function NotFound() {
               <div className="header__wrapper">
                 <div className="header__left">
                   <a className="header__logo-link header__logo-link--active">
-                    <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
+                    <img className="header__logo" src="../../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
                   </a>
                 </div>
                 <nav className="header__nav">
@@ -57,7 +53,7 @@ export function NotFound() {
             </div>
           </header>
 
-          <main className="page__main page__main--index page__main--index-empty">
+          <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
             <div className="tabs">
               <section className="locations container">
@@ -78,7 +74,7 @@ export function NotFound() {
                     </a>
                   </li>
                   <li className="locations__item">
-                    <a className="locations__item-link tabs__item">
+                    <a className="locations__item-link tabs__item tabs__item--active">
                       <span>Amsterdam</span>
                     </a>
                   </li>
@@ -88,7 +84,7 @@ export function NotFound() {
                     </a>
                   </li>
                   <li className="locations__item">
-                    <a className="locations__item-link tabs__item tabs__item--active" href="#">
+                    <a className="locations__item-link tabs__item" href="#">
                       <span>Dusseldorf</span>
                     </a>
                   </li>
@@ -96,21 +92,32 @@ export function NotFound() {
               </section>
             </div>
             <div className="cities">
-              <div className="cities__places-container cities__places-container--empty container">
-                <section className="cities__no-places">
-                  <div className="cities__status-wrapper tabs__content">
-                    <b className="cities__status">404</b>
-                    <p className="cities__status-description">
-                      Page Not Found
-                    </p>
-                    <a href="/">
-                      <button className="button__homepage button" onClick={useNavigateHome}>
-                        Homepage
-                      </button>
-                    </a>
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">312 places to stay in Amsterdam</b>
+                  <form className="places__sorting" action="#" method="get">
+                    <span className="places__sorting-caption">Sort by</span>
+                    <span className="places__sorting-type" tabIndex={0}>
+                      Popular
+                      <svg className="places__sorting-arrow" width="7" height="4">
+                        <use xlinkHref="#icon-arrow-select"></use>
+                      </svg>
+                    </span>
+                    <ul className="places__options places__options--custom places__options--opened">
+                      <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+                      <li className="places__option" tabIndex={0}>Price: low to high</li>
+                      <li className="places__option" tabIndex={0}>Price: high to low</li>
+                      <li className="places__option" tabIndex={0}>Top rated first</li>
+                    </ul>
+                  </form>
+                  <div className="cities__places-list places__list tabs__content">
+                    {cardsData.map((cardData) => <Card key={cardData.id}{...cardData}/>)}
                   </div>
                 </section>
-                <div className="cities__right-section"></div>
+                <div className="cities__right-section">
+                  <section className="cities__map map"></section>
+                </div>
               </div>
             </div>
           </main>
