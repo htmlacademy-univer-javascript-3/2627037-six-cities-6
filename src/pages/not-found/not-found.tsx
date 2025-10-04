@@ -1,4 +1,4 @@
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import '../../../markup/css/main.css';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
 import {Logo} from '../../components/logo/logo.tsx';
@@ -6,10 +6,6 @@ import {LocationsPanel} from '../../components/locations-panel/locations-panel.t
 
 export type NotFoundProps = {
   locations: string[];
-}
-
-function useNavigateHome() {
-  useNavigate()('/');
 }
 
 export function NotFound({locations}: NotFoundProps) {
@@ -44,7 +40,7 @@ export function NotFound({locations}: NotFoundProps) {
                       Page Not Found
                     </p>
                     <Link to='/'>
-                      <button className="button__homepage button" onClick={useNavigateHome}>
+                      <button className="button__homepage button">
                         Homepage
                       </button>
                     </Link>
