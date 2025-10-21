@@ -1,5 +1,5 @@
 import '../../../markup/css/main.css';
-import {Fragment, SetStateAction, useState} from 'react';
+import {SetStateAction, useState} from 'react';
 
 export default function ReviewForm() {
   const [rating, setRating] = useState('');
@@ -30,16 +30,15 @@ export default function ReviewForm() {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {[5, 4, 3, 2, 1].map((value) => (
-          <Fragment key={value}>
-            <label
-              htmlFor={`${value}-stars`}
-              className="reviews__rating-label form__rating-label"
-              title={starTitles[value as keyof typeof starTitles]}
-            >
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
+          <label
+            key={value}
+            htmlFor={`${value}-stars`}
+            className="reviews__rating-label form__rating-label"
+            title={starTitles[value as keyof typeof starTitles]}
+          >
+            <svg className="form__star-image" width="37" height="33">
+              <use xlinkHref="#icon-star"></use>
+            </svg>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
@@ -49,7 +48,7 @@ export default function ReviewForm() {
               checked={Number(rating) >= value}
               onChange={handleRatingChange}
             />
-          </Fragment>
+          </label>
         ))}
       </div>
       <textarea

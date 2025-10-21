@@ -7,14 +7,16 @@ import {Offer} from '../offer/offer.tsx';
 import {NotFound} from '../not-found/not-found.tsx';
 import PrivateRoute from '../../components/private-route/private-route.tsx';
 import {OfferType} from '../../types/offer-type.ts';
+import {ReviewType} from '../../types/review-type.ts';
 
 export type AppProps = {
   offers: OfferType[];
   locations: string[];
+  reviews: ReviewType[];
   isAuthorized: boolean;
 }
 
-export default function App({offers, locations, isAuthorized}: AppProps) {
+export default function App({offers, locations, reviews, isAuthorized}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -27,7 +29,7 @@ export default function App({offers, locations, isAuthorized}: AppProps) {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Property} element={<Offer nearPlaces={offers} />} />
+        <Route path={AppRoute.Property} element={<Offer nearPlaces={offers} reviews={reviews} />} />
         <Route path={AppRoute.NotFound} element={<NotFound locations={locations} />} />
       </Routes>
     </BrowserRouter>
