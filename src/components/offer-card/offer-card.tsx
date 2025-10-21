@@ -1,7 +1,7 @@
 import '../../../markup/css/main.css';
 import {OfferType} from '../../types/offer-type.ts';
 import {Dispatch, SetStateAction} from 'react';
-import {getOfferCardStyle} from '../../markup-styles-provider.ts';
+import {calculateRatingWidth, getOfferCardStyle} from '../../helpers/markup-styles-provider.ts';
 
 export type OfferCardProps = {
   offer: OfferType;
@@ -42,7 +42,7 @@ export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={`${offer.isFavorite ? 'place-card__bookmark-button--active ' : ''}place-card__bookmark-button button`} type="button">
-            <svg className="place-card__bookmark-icon" style={{width: 18, height: 19}}>
+            <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
@@ -50,7 +50,7 @@ export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * offer.rating}%`}}></span>
+            <span style={{width: `${calculateRatingWidth(offer.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
