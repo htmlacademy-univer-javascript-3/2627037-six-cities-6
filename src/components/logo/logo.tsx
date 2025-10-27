@@ -1,8 +1,10 @@
+import {CSSProperties} from 'react';
+
 export type LogoProps = {
   placingType: string;
+  width: CSSProperties['width'];
+  height: CSSProperties['height'];
   link?: string;
-  width: number;
-  height: number;
 }
 
 export function Logo({placingType, link, width, height}: LogoProps) {
@@ -15,8 +17,8 @@ export function Logo({placingType, link, width, height}: LogoProps) {
         className={`${placingType}__logo`}
         src="../../../markup/img/logo.svg"
         alt="6 cities logo"
-        width={`${width}`}
-        height={`${height}`}
+        width={width}
+        height={height}
       >
       </img>
     </a>

@@ -8,4 +8,6 @@ export type OfferType = {
   isFavorite: boolean;
   rating: number;
   location: string;
+  latitude: number;
+  longitude: number;
 }

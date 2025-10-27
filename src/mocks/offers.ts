@@ -10,7 +10,9 @@ export const Offers : OfferType[] = [
     type: 'Apartment',
     isFavorite: true,
     rating: 1,
-    location: 'Amsterdam'
+    location: 'Amsterdam',
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
   },
   {
     id: '2',
@@ -21,7 +23,9 @@ export const Offers : OfferType[] = [
     type: 'Room',
     isFavorite: false,
     rating: 2,
-    location: 'Amsterdam'
+    location: 'Amsterdam',
+    latitude: 52.3609553943508,
+    longitude: 4.85309666406198,
   },
   {
     id: '3',
@@ -32,7 +36,9 @@ export const Offers : OfferType[] = [
     type: 'Apartment',
     isFavorite: true,
     rating: 3,
-    location: 'Cologne'
+    location: 'Cologne',
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
   },
   {
     id: '4',
@@ -43,5 +49,7 @@ export const Offers : OfferType[] = [
     type: 'Apartment',
     isFavorite: false,
     rating: 5,
-    location: 'Brussels'
+    location: 'Brussels',
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
   }];
