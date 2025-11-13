@@ -55,7 +55,7 @@ export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`/offer/${offer.id}`}>{offer.header}</a>
+          <a href={`/offer/${offer.id}`}>{offer.title}</a>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
