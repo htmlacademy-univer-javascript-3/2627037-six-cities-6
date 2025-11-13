@@ -2,12 +2,13 @@ import '../../../markup/css/main.css';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
 import {Logo} from '../../components/logo/logo.tsx';
 import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
+import {CityType} from '../../types/city-type.ts';
 
 export type MainEmptyProps = {
-  locations: string[];
+  cities: CityType[];
 }
 
-export function MainEmpty({locations}: MainEmptyProps) {
+export function MainEmpty({cities}: MainEmptyProps) {
   return (
     <html lang="en">
       <head>
@@ -29,7 +30,7 @@ export function MainEmpty({locations}: MainEmptyProps) {
 
           <main className="page__main page__main--index page__main--index-empty">
             <h1 className="visually-hidden">Cities</h1>
-            <LocationsPanel locations={locations} />
+            <LocationsPanel cities={cities} />
             <div className="cities">
               <div className="cities__places-container cities__places-container--empty container">
                 <section className="cities__no-places">

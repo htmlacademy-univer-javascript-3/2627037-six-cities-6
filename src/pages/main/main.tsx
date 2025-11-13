@@ -1,17 +1,22 @@
-import {OfferType} from '../../types/offer-type.ts';
 import {OfferList} from '../../components/offer-list/offer-list.tsx';
 import {AppRoute} from '../../const.ts';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
 import {Logo} from '../../components/logo/logo.tsx';
 import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
 import {Map} from '../../components/map/map.tsx';
+import {useSelector} from 'react-redux';
+import {selectOffersByCity} from '../../store/selector';
+import {State} from '../../store/reducer';
+import {CityType} from '../../types/city-type.ts';
 
 export type MainProps = {
-  offers: OfferType[];
-  locations: string[];
+  cities: CityType[];
 }
 
-export default function Main({offers, locations}: MainProps) {
+export default function Main({cities}: MainProps) {
+  const offers = useSelector(selectOffersByCity);
+  const currentCity = useSelector((state: State) => state.city);
+
   return (
     <html lang="en">
       <head>
@@ -33,12 +38,12 @@ export default function Main({offers, locations}: MainProps) {
 
           <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
-            <LocationsPanel locations={locations} />
+            <LocationsPanel cities={cities} />
             <div className="cities">
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.filter((offer) => offer.location === 'Amsterdam').length} places to stay in Amsterdam</b>
+                  <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in {currentCity.name}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <span className="places__sorting-type" tabIndex={0}>
@@ -55,25 +60,22 @@ export default function Main({offers, locations}: MainProps) {
                     </ul>
                   </form>
                   <div className="cities__places-list places__list tabs__content">
-                    <OfferList offers={offers.filter((offer) => offer.location === 'Amsterdam')} stylesId={AppRoute.Root} />
+                    <OfferList offers={offers.filter((offer) => offer.city === currentCity)} stylesId={AppRoute.Root} />
                   </div>
                 </section>
                 <div className="cities__right-section">
                   <Map
-                    offer={
-                      offers.filter((offer) =>
-                        offer.location === 'Amsterdam')[0]
-                    }
+                    city={currentCity}
+                    offer={offers.filter((offer) => offer.city === currentCity)[0]}
                     points={
                       offers
-                        .filter((offer) => offer.location === 'Amsterdam')
+                        .filter((offer) => offer.city === currentCity)
                         .map((offer) => ({
-                          title: offer.header,
-                          latitude: offer.latitude,
-                          longitude: offer.longitude
+                          title: offer.title,
+                          latitude: offer.location.latitude,
+                          longitude: offer.location.longitude,
                         }))
                     }
-                    selectedPoint={undefined}
                     styleBlockName={'cities__map'}
                   />
                 </div>

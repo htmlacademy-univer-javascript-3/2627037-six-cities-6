@@ -43,7 +43,7 @@ export function Favorites({offers}: FavoritesProps) {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      <OfferList offers={offers.filter((offer) => offer.location === 'Amsterdam')} stylesId={AppRoute.Favorites} />
+                      <OfferList offers={offers.filter((offer) => offer.city.name === 'Amsterdam')} stylesId={AppRoute.Favorites} />
                     </div>
                   </li>
 
@@ -56,7 +56,7 @@ export function Favorites({offers}: FavoritesProps) {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      <OfferList offers={offers.filter((offer) => offer.location === 'Cologne')} stylesId={AppRoute.Favorites} />
+                      <OfferList offers={offers.filter((offer) => offer.city.name === 'Cologne')} stylesId={AppRoute.Favorites} />
                     </div>
                   </li>
                 </ul>

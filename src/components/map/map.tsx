@@ -1,16 +1,18 @@
-import { useRef, useEffect } from 'react';
-import { Icon, Marker, layerGroup } from 'leaflet';
+import {useRef, useEffect} from 'react';
+import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import {MapPointType} from '../../types/map-point-type.ts';
 import {OfferType} from '../../types/offer-type.ts';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
+import {CityType} from '../../types/city-type.ts';
 
 type MapProps = {
+  city: CityType;
   offer: OfferType;
   points: MapPointType[];
-  selectedPoint: MapPointType | undefined;
   styleBlockName: string;
+  selectedPoint?: MapPointType;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,12 +27,20 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export function Map({ offer, points, selectedPoint, styleBlockName }: MapProps) {
+export function Map({ city, offer, points, styleBlockName, selectedPoint }: MapProps) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offer);
+  const map = useMap(mapRef, offer === undefined ? city.location : offer.location);
 
   useEffect(() => {
     if (map) {
+      map.setView(
+        {
+          lat: offer === undefined ? city.location.latitude : offer.location.latitude,
+          lng: offer === undefined ? city.location.longitude : offer.location.longitude,
+        },
+        offer === undefined ? 8 : 13
+      );
+
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
@@ -51,7 +61,7 @@ export function Map({ offer, points, selectedPoint, styleBlockName }: MapProps) 
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, selectedPoint]);
+  }, [map, offer, city, points, selectedPoint]);
 
   return <section className={styleBlockName} ref={mapRef}></section>;
 }
