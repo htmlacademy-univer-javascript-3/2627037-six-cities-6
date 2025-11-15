@@ -1,3 +1,5 @@
+import {CityType} from './types/city-type.ts';
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -8,14 +10,56 @@ export enum AppRoute {
 
 export const IsAuthorized = true;
 
-export const Locations = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
+export const Cities: {[key: string]: CityType} = {
+  Paris: {
+    name: 'Paris',
+    location: {
+      latitude: 52.3709553943508,
+      longitude: 4.89309666406198,
+      zoom: 1,
+    }
+  },
+  Cologne: {
+    name: 'Cologne',
+    location: {
+      latitude: 52.3709553943508,
+      longitude: 4.89309666406198,
+      zoom: 1,
+    }
+  },
+  Brussels: {
+    name: 'Brussels',
+    location: {
+      latitude: 52.3709553943508,
+      longitude: 4.89309666406198,
+      zoom: 1,
+    }
+  },
+  Amsterdam: {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.3709553943508,
+      longitude: 4.89309666406198,
+      zoom: 1,
+    }
+  },
+  Hamburg: {
+    name: 'Hamburg',
+    location: {
+      latitude: 52.3709553943508,
+      longitude: 4.89309666406198,
+      zoom: 1,
+    }
+  },
+  Dusseldorf: {
+    name: 'Dusseldorf',
+    location: {
+      latitude: 52.3709553943508,
+      longitude: 4.89309666406198,
+      zoom: 1,
+    }
+  }
+};
 
 export const MainStyles = {
   block: 'cities',

@@ -1,16 +1,35 @@
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '../../store/reducer.ts';
+import {changeCityAction, changeLocationAction} from '../../store/action.ts';
+import {CityType} from '../../types/city-type.ts';
+
 export type LocationsPanelProps = {
-  locations: string[];
+  cities: CityType[];
 }
 
-export function LocationsPanel({locations}: LocationsPanelProps) {
+export function LocationsPanel({ cities }: LocationsPanelProps) {
+  const dispatch = useDispatch();
+  const currentCity = useSelector((state: State) => state.city);
+
+  const handleLocationClick = (city: CityType) => {
+    dispatch(changeCityAction(city));
+    dispatch(changeLocationAction(city.location));
+  };
+
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {locations.map((location) => (
-            <li key={location} className="locations__item">
-              <a className={`locations__item-link tabs__item${location === 'Amsterdam' ? ' tabs__item--active' : ''}`} href={location === 'Amsterdam' ? undefined : '#'}>
-                <span>{location}</span>
+          {cities.map((city) => (
+            <li key={city.name} className="locations__item">
+              <a className={`locations__item-link tabs__item${city === currentCity ? ' tabs__item--active' : ''}`}
+                href={city === currentCity ? undefined : '#'}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLocationClick(city);
+                }}
+              >
+                <span>{city.name}</span>
               </a>
             </li>
           ))}

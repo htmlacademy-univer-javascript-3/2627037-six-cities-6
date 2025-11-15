@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './pages/app/app.tsx';
 import {Offers} from './mocks/offers.ts';
-import {IsAuthorized, Locations} from './const.ts';
+import {IsAuthorized, Cities} from './const.ts';
 import {Reviews} from './mocks/reviews.ts';
+import {Provider} from 'react-redux';
+import {store} from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,6 +13,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App offers={Offers} locations={Locations} reviews={Reviews} isAuthorized={IsAuthorized} />
+    <Provider store={store}>
+      <App
+        offers={Offers}
+        cities={Object.keys(Cities).map((name) => Cities[name])}
+        reviews={Reviews}
+        isAuthorized={IsAuthorized}
+      />
+    </Provider>
   </React.StrictMode>
 );

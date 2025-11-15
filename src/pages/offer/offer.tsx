@@ -151,13 +151,13 @@ export function Offer({nearPlaces, reviews}: OfferProps) {
               </div>
             </div>
             <Map
+              city={nearPlaces[0].city}
               offer={nearPlaces[0]}
               points={nearPlaces.map((offer) => ({
-                title: offer.header,
-                latitude: offer.latitude,
-                longitude: offer.longitude
+                title: offer.title,
+                latitude: offer.location.latitude,
+                longitude: offer.location.longitude
               }))}
-              selectedPoint={undefined}
               styleBlockName={'offer__map'}
             />
           </section>
