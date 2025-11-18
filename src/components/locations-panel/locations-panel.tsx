@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
+import classNames from 'classnames';
 import {State} from '../../store/reducer.ts';
 import {changeCityAction, changeLocationAction} from '../../store/action.ts';
 import {CityType} from '../../types/city-type.ts';
@@ -16,13 +17,18 @@ export function LocationsPanel({ cities }: LocationsPanelProps) {
     dispatch(changeLocationAction(city.location));
   };
 
+  const locationTabs = (city: CityType) => classNames({
+    'locations__item-link tabs__item': true,
+    'tabs__item--active': city === currentCity
+  });
+
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
             <li key={city.name} className="locations__item">
-              <a className={`locations__item-link tabs__item${city === currentCity ? ' tabs__item--active' : ''}`}
+              <a className={locationTabs(city)}
                 href={city === currentCity ? undefined : '#'}
                 onClick={(e) => {
                   e.preventDefault();

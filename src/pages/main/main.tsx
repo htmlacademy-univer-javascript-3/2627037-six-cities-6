@@ -1,20 +1,26 @@
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
 import {OfferList} from '../../components/offer-list/offer-list.tsx';
 import {AppRoute} from '../../const.ts';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
 import {Logo} from '../../components/logo/logo.tsx';
 import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
 import {Map} from '../../components/map/map.tsx';
-import {useSelector} from 'react-redux';
 import {selectOffersByCity} from '../../store/selector';
 import {State} from '../../store/reducer';
 import {CityType} from '../../types/city-type.ts';
+import SortingOptions from '../../components/sorting/sorting.tsx';
+import {sortOffers} from '../../helpers/sorting-helper.ts';
 
 export type MainProps = {
   cities: CityType[];
 }
 
 export default function Main({cities}: MainProps) {
-  const offers = useSelector(selectOffersByCity);
+  const sorting = useSelector((state: State) => state.sorting);
+  const offers = sortOffers(useSelector(selectOffersByCity), sorting);
+  const [selectedOfferCardId, setSelectedOfferCardId] = useState('');
+  const selectedOffer = offers.find((x) => x.id === selectedOfferCardId);
   const currentCity = useSelector((state: State) => state.city);
 
   return (
@@ -44,23 +50,13 @@ export default function Main({cities}: MainProps) {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in {currentCity.name}</b>
-                  <form className="places__sorting" action="#" method="get">
-                    <span className="places__sorting-caption">Sort by</span>
-                    <span className="places__sorting-type" tabIndex={0}>
-                      Popular
-                      <svg className="places__sorting-arrow" width="7" height="4">
-                        <use xlinkHref="#icon-arrow-select"></use>
-                      </svg>
-                    </span>
-                    <ul className="places__options places__options--custom places__options--opened">
-                      <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                      <li className="places__option" tabIndex={0}>Price: low to high</li>
-                      <li className="places__option" tabIndex={0}>Price: high to low</li>
-                      <li className="places__option" tabIndex={0}>Top rated first</li>
-                    </ul>
-                  </form>
+                  <SortingOptions />
                   <div className="cities__places-list places__list tabs__content">
-                    <OfferList offers={offers.filter((offer) => offer.city === currentCity)} stylesId={AppRoute.Root} />
+                    <OfferList
+                      offers={offers.filter((offer) => offer.city === currentCity)}
+                      stylesId={AppRoute.Root}
+                      activeOfferCardIdDispatcher={setSelectedOfferCardId}
+                    />
                   </div>
                 </section>
                 <div className="cities__right-section">
@@ -76,6 +72,11 @@ export default function Main({cities}: MainProps) {
                           longitude: offer.location.longitude,
                         }))
                     }
+                    selectedPoint={selectedOffer === undefined ? undefined : {
+                      title: selectedOffer.title,
+                      latitude: selectedOffer.location.latitude,
+                      longitude: selectedOffer.location.longitude
+                    }}
                     styleBlockName={'cities__map'}
                   />
                 </div>

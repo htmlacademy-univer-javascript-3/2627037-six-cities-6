@@ -8,6 +8,13 @@ export enum AppRoute {
   NotFound = '*'
 }
 
+export enum Sorting {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
+
 export const IsAuthorized = true;
 
 export const Cities: {[key: string]: CityType} = {
