@@ -1,5 +1,5 @@
-import '../../../markup/css/main.css';
 import {Link} from 'react-router-dom';
+import '../../../markup/css/main.css';
 import {Logo} from '../../components/logo/logo.tsx';
 
 export function Login() {

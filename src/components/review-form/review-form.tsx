@@ -1,5 +1,5 @@
-import '../../../markup/css/main.css';
 import {SetStateAction, useState} from 'react';
+import '../../../markup/css/main.css';
 
 export default function ReviewForm() {
   const [rating, setRating] = useState('');

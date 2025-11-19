@@ -1,6 +1,6 @@
+import {Dispatch, SetStateAction} from 'react';
 import '../../../markup/css/main.css';
 import {OfferType} from '../../types/offer-type.ts';
-import {Dispatch, SetStateAction} from 'react';
 import {calculateRatingWidth, getOfferCardStyle} from '../../helpers/markup-styles-provider.ts';
 
 export type OfferCardProps = {

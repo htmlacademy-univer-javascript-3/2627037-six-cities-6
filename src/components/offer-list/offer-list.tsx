@@ -1,15 +1,14 @@
+import {Dispatch, SetStateAction} from 'react';
 import OfferCard from '../offer-card/offer-card.tsx';
 import {OfferType} from '../../types/offer-type.ts';
-import {useState} from 'react';
 
 export type OfferListProps = {
   offers: OfferType[];
   stylesId: string;
+  activeOfferCardIdDispatcher: Dispatch<SetStateAction<string>>;
 }
 
-export function OfferList({offers, stylesId}: OfferListProps) {
-  const [, activeOfferCardIdDispatcher] = useState('');
-
+export function OfferList({offers, stylesId, activeOfferCardIdDispatcher}: OfferListProps) {
   return (
     <>
       {offers.map((offer) => (
