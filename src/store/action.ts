@@ -2,13 +2,13 @@ import {createAction} from '@reduxjs/toolkit';
 import {OfferType} from '../types/offer-type.ts';
 import {LocationType} from '../types/location-type.ts';
 import {CityType} from '../types/city-type.ts';
-import {Sorting} from '../const.ts';
 
 const Action = {
   CHANGE_CITY: 'CHANGE_CITY',
   CHANGE_LOCATION: 'CHANGE_LOCATION',
   FILL_OFFERS: 'FILL_OFFERS',
   SORT_OFFERS: 'SORT_OFFERS',
+  INVOKE_LOADING: 'INVOKE_LOADING',
 };
 
 export const changeCityAction = createAction(Action.CHANGE_CITY, (value: CityType) => ({
@@ -23,6 +23,10 @@ export const fillOffersAction = createAction(Action.FILL_OFFERS, (value: OfferTy
   payload: value,
 }));
 
-export const sortOffersAction = createAction(Action.SORT_OFFERS, (value: Sorting) => ({
+export const sortOffersAction = createAction(Action.SORT_OFFERS, (value: string) => ({
+  payload: value,
+}));
+
+export const invokeLoadingAction = createAction(Action.INVOKE_LOADING, (value: boolean) => ({
   payload: value,
 }));

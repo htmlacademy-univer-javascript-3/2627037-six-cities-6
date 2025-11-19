@@ -1,9 +1,9 @@
+import classNames from 'classnames';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortOffersAction } from '../../store/action';
 import { State } from '../../store/reducer.ts';
 import { Sorting } from '../../const.ts';
-import classNames from 'classnames';
 
 export default function SortingOptions() {
   const dispatch = useDispatch();
@@ -14,19 +14,19 @@ export default function SortingOptions() {
     setIsOpen((menuOpened) => !menuOpened);
   };
 
-  const handleSortingChange = (option: Sorting) => {
+  const handleSortingChange = (option: string) => {
     dispatch(sortOffersAction(option));
   };
 
-  const placesOptions = classNames({
-    'places__options places__options--custom': true,
-    'places__options--opened': isOpen,
-  });
+  const placesOptions = classNames(
+    'places__options places__options--custom', {
+      'places__options--opened': isOpen,
+    });
 
-  const placeOption = (option: Sorting) => classNames({
-    'places__option': true,
-    'places__option--active': option === activeOption,
-  });
+  const placeOption = (option: string) => classNames(
+    'places__option', {
+      'places__option--active': option === activeOption,
+    });
 
   return (
     <form className="places__sorting" action="#" method="get">

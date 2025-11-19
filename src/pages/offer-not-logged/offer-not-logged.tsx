@@ -1,7 +1,7 @@
+import {Link} from 'react-router-dom';
 import '../../../markup/css/main.css';
 import {OfferList} from '../../components/offer-list/offer-list.tsx';
 import {OfferType} from '../../types/offer-type.ts';
-import {Link} from 'react-router-dom';
 import {Logo} from '../../components/logo/logo.tsx';
 
 export type OfferNotLoggedProps = {

@@ -152,9 +152,8 @@ export function Offer({nearPlaces, reviews}: OfferProps) {
             </div>
             <Map
               city={nearPlaces[0].city}
-              offer={nearPlaces[0]}
               points={nearPlaces.map((offer) => ({
-                title: offer.title,
+                id: offer.id,
                 latitude: offer.location.latitude,
                 longitude: offer.location.longitude
               }))}
