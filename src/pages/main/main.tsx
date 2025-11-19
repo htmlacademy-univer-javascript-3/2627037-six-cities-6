@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {OfferList} from '../../components/offer-list/offer-list.tsx';
 import {AppRoute} from '../../const.ts';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
@@ -11,6 +11,9 @@ import {State} from '../../store/reducer';
 import {CityType} from '../../types/city-type.ts';
 import SortingOptions from '../../components/sorting/sorting.tsx';
 import {sortOffers} from '../../helpers/sorting-helper.ts';
+import Loading from '../../components/loading/loading.tsx';
+import {AppDispatch} from '../../store';
+import {fetchOffersAction} from '../../api/offers.ts';
 
 export type MainProps = {
   cities: CityType[];
@@ -22,6 +25,14 @@ export default function Main({cities}: MainProps) {
   const [selectedOfferCardId, setSelectedOfferCardId] = useState('');
   const selectedOffer = offers.find((x) => x.id === selectedOfferCardId);
   const currentCity = useSelector((state: State) => state.city);
+  const loading = useSelector((state: State) => state.loading);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (!offers.length) {
+      dispatch(fetchOffersAction());
+    }
+  }, [dispatch, offers.length]);
 
   return (
     <html lang="en">
@@ -49,31 +60,33 @@ export default function Main({cities}: MainProps) {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in {currentCity.name}</b>
+                  <b className="places__found">{offers.filter((offer) => offer.city.name === currentCity.name).length} places to stay in {currentCity.name}</b>
                   <SortingOptions />
                   <div className="cities__places-list places__list tabs__content">
-                    <OfferList
-                      offers={offers.filter((offer) => offer.city === currentCity)}
-                      stylesId={AppRoute.Root}
-                      activeOfferCardIdDispatcher={setSelectedOfferCardId}
-                    />
+                    {loading
+                      ? <Loading />
+                      :
+                      <OfferList
+                        offers={offers.filter((offer) => offer.city.name === currentCity.name)}
+                        stylesId={AppRoute.Root}
+                        activeOfferCardIdDispatcher={setSelectedOfferCardId}
+                      />}
                   </div>
                 </section>
                 <div className="cities__right-section">
                   <Map
                     city={currentCity}
-                    offer={offers.filter((offer) => offer.city === currentCity)[0]}
                     points={
                       offers
-                        .filter((offer) => offer.city === currentCity)
+                        .filter((offer) => offer.city.name === currentCity.name)
                         .map((offer) => ({
-                          title: offer.title,
+                          id: offer.id,
                           latitude: offer.location.latitude,
                           longitude: offer.location.longitude,
                         }))
                     }
                     selectedPoint={selectedOffer === undefined ? undefined : {
-                      title: selectedOffer.title,
+                      id: selectedOffer.id,
                       latitude: selectedOffer.location.latitude,
                       longitude: selectedOffer.location.longitude
                     }}

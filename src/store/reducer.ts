@@ -1,24 +1,30 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
-import {Offers} from '../mocks/offers';
-import {fillOffersAction, changeLocationAction, changeCityAction, sortOffersAction} from './action';
+import {
+  fillOffersAction,
+  changeLocationAction,
+  changeCityAction,
+  sortOffersAction,
+  invokeLoadingAction
+} from './action';
 import {OfferType} from '../types/offer-type.ts';
 import {Cities, Sorting} from '../const.ts';
 import {LocationType} from '../types/location-type.ts';
 import {CityType} from '../types/city-type.ts';
 
-
 export type State = {
   city: CityType;
   location: LocationType;
   offers: OfferType[];
-  sorting: Sorting;
+  sorting: string;
+  loading: boolean;
 };
 
 const initialState: State = {
   city: Cities['Paris'],
   location: Cities['Paris'].location,
-  offers: Offers,
+  offers: [],
   sorting: Sorting.Popular,
+  loading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -32,7 +38,10 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fillOffersAction, (state: State, action: PayloadAction<OfferType[]>) => {
       state.offers = action.payload;
     })
-    .addCase(sortOffersAction, (state: State, action: PayloadAction<Sorting>) => {
+    .addCase(sortOffersAction, (state: State, action: PayloadAction<string>) => {
       state.sorting = action.payload;
+    })
+    .addCase(invokeLoadingAction, (state: State, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
     });
 });
