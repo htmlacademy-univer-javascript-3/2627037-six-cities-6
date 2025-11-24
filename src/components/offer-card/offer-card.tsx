@@ -32,7 +32,7 @@ export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}
 
       <div className={`${styles.block}__image-wrapper place-card__image-wrapper`}>
         <a href={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={`../../markup/img/${offer.image}`} width={styles.imageWidth} height={styles.imageHeight} alt="Place image"></img>
+          <img className="place-card__image" src={offer.previewImage} width={styles.imageWidth} height={styles.imageHeight} alt="Place image"></img>
         </a>
       </div>
       <div className={`${styles.block === 'favorites' ? 'favorites__card-info ' : ''}place-card__info`}>
