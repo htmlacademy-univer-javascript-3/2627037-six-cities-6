@@ -6,16 +6,13 @@ import {Favorites} from '../favorites/favorites.tsx';
 import {Offer} from '../offer/offer.tsx';
 import {NotFound} from '../not-found/not-found.tsx';
 import PrivateRoute from '../../components/private-route/private-route.tsx';
-import {ReviewType} from '../../types/review-type.ts';
 import {CityType} from '../../types/city-type.ts';
 
 export type AppProps = {
   cities: CityType[];
-  reviews: ReviewType[];
-  isAuthorized: boolean;
 }
 
-export default function App({cities, reviews, isAuthorized}: AppProps) {
+export default function App({cities}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -23,12 +20,12 @@ export default function App({cities, reviews, isAuthorized}: AppProps) {
         <Route path={AppRoute.Login} element={<Login />} />
         <Route path={AppRoute.Favorites} element=
           {
-            <PrivateRoute isAuthorized={isAuthorized}>
-              <Favorites offers={[]} />
+            <PrivateRoute>
+              <Favorites />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Property} element={<Offer nearPlaces={[]} reviews={reviews} />} />
+        <Route path={AppRoute.Property} element={<Offer />} />
         <Route path={AppRoute.NotFound} element={<NotFound cities={cities} />} />
       </Routes>
     </BrowserRouter>

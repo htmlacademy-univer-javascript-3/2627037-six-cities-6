@@ -1,19 +1,17 @@
 import '../../../markup/css/main.css';
 import {OfferList} from '../../components/offer-list/offer-list.tsx';
-import {OfferType} from '../../types/offer-type.ts';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
 import {Logo} from '../../components/logo/logo.tsx';
 import ReviewForm from '../../components/review-form/review-form.tsx';
 import {ReviewList} from '../../components/review-list/review-list.tsx';
-import {ReviewType} from '../../types/review-type.ts';
 import {Map} from '../../components/map/map.tsx';
+import {ReviewType} from '../../types/review-type.ts';
+import {OfferType} from '../../types/offer-type.ts';
 
-export type OfferProps = {
-  nearPlaces: OfferType[];
-  reviews: ReviewType[];
-}
+export function Offer() {
+  const reviews: ReviewType[] = []; // GET /six-cities/comments/{offerId}
+  const nearPlaces: OfferType[] = []; // GET /six-cities/offers/{offerId}/nearby
 
-export function Offer({nearPlaces, reviews}: OfferProps) {
   return (
     <body>
       <div className="page">
