@@ -1,15 +1,10 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
-import {
-  fillOffersAction,
-  changeLocationAction,
-  changeCityAction,
-  sortOffersAction,
-  invokeLoadingAction
-} from './action';
+import * as storeAction from './action';
 import {OfferType} from '../types/offer-type.ts';
-import {Cities, Sorting} from '../const.ts';
+import {AuthorizationStatus, Cities, Sorting} from '../const.ts';
 import {LocationType} from '../types/location-type.ts';
 import {CityType} from '../types/city-type.ts';
+import {UserType} from '../types/user-type.ts';
 
 export type State = {
   city: CityType;
@@ -17,6 +12,8 @@ export type State = {
   offers: OfferType[];
   sorting: string;
   loading: boolean;
+  authorizationStatus: string;
+  user?: UserType;
 };
 
 const initialState: State = {
@@ -25,23 +22,30 @@ const initialState: State = {
   offers: [],
   sorting: Sorting.Popular,
   loading: false,
+  authorizationStatus: AuthorizationStatus.NonAuthorized,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCityAction, (state: State, action: PayloadAction<CityType>) => {
+    .addCase(storeAction.changeCityAction, (state: State, action: PayloadAction<CityType>) => {
       state.city = action.payload;
     })
-    .addCase(changeLocationAction, (state: State, action: PayloadAction<LocationType>) => {
+    .addCase(storeAction.changeLocationAction, (state: State, action: PayloadAction<LocationType>) => {
       state.location = action.payload;
     })
-    .addCase(fillOffersAction, (state: State, action: PayloadAction<OfferType[]>) => {
+    .addCase(storeAction.fillOffersAction, (state: State, action: PayloadAction<OfferType[]>) => {
       state.offers = action.payload;
     })
-    .addCase(sortOffersAction, (state: State, action: PayloadAction<string>) => {
+    .addCase(storeAction.sortOffersAction, (state: State, action: PayloadAction<string>) => {
       state.sorting = action.payload;
     })
-    .addCase(invokeLoadingAction, (state: State, action: PayloadAction<boolean>) => {
+    .addCase(storeAction.invokeLoadingAction, (state: State, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
+    })
+    .addCase(storeAction.updateAuthorizationAction, (state: State, action: PayloadAction<string>) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(storeAction.updateUserAction, (state: State, action: PayloadAction<UserType | undefined>) => {
+      state.user = action.payload;
     });
 });

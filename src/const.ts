@@ -1,15 +1,23 @@
 import {CityType} from './types/city-type.ts';
 
-export enum AppRoute {
-  Root = '/',
-  Login = '/login',
-  Favorites = '/favorites',
-  Property = '/offer/:id',
-  NotFound = '*'
-}
+export const AppRoute = {
+  Root: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Property: '/offer/:id',
+  NotFound: '*'
+};
+
+export const AuthorizationStatus = {
+  Authorized: 'Authorized',
+  NonAuthorized: 'NonAuthorized',
+  Undefined: 'Undefined',
+};
 
 export const Api = {
   Offers: '/six-cities/offers',
+  Login: '/six-cities/login',
+  Logout: '/six-cities/logout',
 };
 
 export const Sorting = {
@@ -18,8 +26,6 @@ export const Sorting = {
   PriceHighToLow: 'Price: high to low',
   TopRatedFirst: 'Top rated first',
 };
-
-export const IsAuthorized = true;
 
 export const Cities: {[key: string]: CityType} = {
   Paris: {

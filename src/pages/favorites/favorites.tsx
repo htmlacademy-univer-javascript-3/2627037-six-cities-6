@@ -1,15 +1,13 @@
 import '../../../markup/css/main.css';
-import {OfferType} from '../../types/offer-type.ts';
 import {OfferList} from '../../components/offer-list/offer-list.tsx';
 import {AppRoute} from '../../const.ts';
 import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
 import {Logo} from '../../components/logo/logo.tsx';
+import {OfferType} from '../../types/offer-type.ts';
 
-export type FavoritesProps = {
-  offers: OfferType[];
-}
+export function Favorites() {
+  const offers: OfferType[] = []; // GET /six-cities/favorite
 
-export function Favorites({offers}: FavoritesProps) {
   return (
     <html lang="en">
       <head>
