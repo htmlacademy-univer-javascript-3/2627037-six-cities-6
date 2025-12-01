@@ -1,21 +1,33 @@
 import {SetStateAction, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import '../../../markup/css/main.css';
+import {AppDispatch, RootState} from '../../store';
+import {postCommentAction} from '../../api/comments.ts';
 
 export default function ReviewForm() {
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
-  const handleRatingChange = (event: { target: { value: SetStateAction<string> } }) => {
-    setRating(event.target.value);
+  const handleRatingChange = (value: number) => {
+    setRating(value);
   };
 
   const handleReviewChange = (event: { target: { value: SetStateAction<string> } }) => {
     setReview(event.target.value);
   };
 
-  const handleSubmit = () => { };
+  const dispatch = useDispatch<AppDispatch>();
+  const offerId = useSelector((state: RootState) => state.offer?.id);
 
-  const isSubmitAvailable = rating && review.length >= 50;
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    if (!offerId) {
+      return;
+    }
+    dispatch(postCommentAction({ offerId: offerId, comment: review, rating: rating }));
+    setRating(0);
+    setReview('');
+  };
 
   const starTitles = {
     1: 'terribly',
@@ -30,25 +42,26 @@ export default function ReviewForm() {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {[5, 4, 3, 2, 1].map((value) => (
-          <label
-            key={value}
-            htmlFor={`${value}-stars`}
-            className="reviews__rating-label form__rating-label"
-            title={starTitles[value as keyof typeof starTitles]}
-          >
-            <svg className="form__star-image" width="37" height="33">
-              <use xlinkHref="#icon-star"></use>
-            </svg>
+          <>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
               value={value}
               id={`${value}-stars`}
               type="radio"
-              checked={Number(rating) >= value}
-              onChange={handleRatingChange}
+              checked={rating === value}
+              onChange={() => handleRatingChange(value)}
             />
-          </label>
+            <label
+              htmlFor={`${value}-stars`}
+              className="reviews__rating-label form__rating-label"
+              title={starTitles[value as keyof typeof starTitles]}
+            >
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star"></use>
+              </svg>
+            </label>
+          </>
         ))}
       </div>
       <textarea
@@ -69,7 +82,7 @@ export default function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isSubmitAvailable}
+          disabled={!rating || review.length < 50}
         >
           Submit
         </button>

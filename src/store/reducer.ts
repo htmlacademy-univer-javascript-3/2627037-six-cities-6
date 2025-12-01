@@ -1,19 +1,24 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
 import * as storeAction from './action';
-import {OfferType} from '../types/offer-type.ts';
+import {OfferPreviewType} from '../types/offer-preview-type.ts';
 import {AuthorizationStatus, Cities, Sorting} from '../const.ts';
 import {LocationType} from '../types/location-type.ts';
 import {CityType} from '../types/city-type.ts';
 import {UserType} from '../types/user-type.ts';
+import {OfferType} from '../types/offer-type.ts';
+import {CommentType} from '../types/comment-type.ts';
 
 export type State = {
   city: CityType;
   location: LocationType;
-  offers: OfferType[];
+  offers: OfferPreviewType[];
   sorting: string;
   loading: boolean;
   authorizationStatus: string;
   user?: UserType;
+  offer: OfferType | undefined;
+  nearOffers: OfferPreviewType[];
+  comments: CommentType[];
 };
 
 const initialState: State = {
@@ -23,6 +28,9 @@ const initialState: State = {
   sorting: Sorting.Popular,
   loading: false,
   authorizationStatus: AuthorizationStatus.NonAuthorized,
+  offer: undefined,
+  nearOffers: [],
+  comments: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -33,7 +41,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(storeAction.changeLocationAction, (state: State, action: PayloadAction<LocationType>) => {
       state.location = action.payload;
     })
-    .addCase(storeAction.fillOffersAction, (state: State, action: PayloadAction<OfferType[]>) => {
+    .addCase(storeAction.fillOffersAction, (state: State, action: PayloadAction<OfferPreviewType[]>) => {
       state.offers = action.payload;
     })
     .addCase(storeAction.sortOffersAction, (state: State, action: PayloadAction<string>) => {
@@ -47,5 +55,17 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(storeAction.updateUserAction, (state: State, action: PayloadAction<UserType | undefined>) => {
       state.user = action.payload;
+    })
+    .addCase(storeAction.setupOfferAction, (state: State, action: PayloadAction<OfferType | undefined>) => {
+      state.offer = action.payload;
+    })
+    .addCase(storeAction.setupNearOffersAction, (state: State, action: PayloadAction<OfferPreviewType[]>) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(storeAction.setupCommentsAction, (state: State, action: PayloadAction<CommentType[]>) => {
+      state.comments = action.payload;
+    })
+    .addCase(storeAction.updateCommentsAction, (state: State, action: PayloadAction<CommentType>) => {
+      state.comments.push(action.payload);
     });
 });

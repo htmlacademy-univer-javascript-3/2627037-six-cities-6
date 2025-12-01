@@ -25,7 +25,7 @@ export default function App({cities}: AppProps) {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Property} element={<Offer />} />
+        <Route path={AppRoute.Property} element={<Offer cities={cities} />} />
         <Route path={AppRoute.NotFound} element={<NotFound cities={cities} />} />
       </Routes>
     </BrowserRouter>

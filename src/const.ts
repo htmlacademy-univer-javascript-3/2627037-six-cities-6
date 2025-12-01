@@ -16,6 +16,9 @@ export const AuthorizationStatus = {
 
 export const Api = {
   Offers: '/six-cities/offers',
+  Offer: '/six-cities/offers/:offerId',
+  NearOffers: '/six-cities/offers/:offerId/nearby',
+  Comments: '/six-cities/comments/:offerId',
   Login: '/six-cities/login',
   Logout: '/six-cities/logout',
 };

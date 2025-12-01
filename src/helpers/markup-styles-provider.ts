@@ -3,9 +3,9 @@ import {PageStyles} from '../types/page-styles-type.ts';
 
 export function getOfferCardStyle(component: string) : PageStyles {
   switch(component) {
-    case `${AppRoute.Root}`:
+    case AppRoute.Root:
       return MainStyles;
-    case `${AppRoute.Favorites}`:
+    case AppRoute.Favorites:
       return FavoritesStyles;
     case 'near-places':
       return NearPlacesStyles;

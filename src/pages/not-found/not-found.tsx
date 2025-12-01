@@ -1,9 +1,8 @@
 import {Link} from 'react-router-dom';
 import '../../../markup/css/main.css';
-import {NavigationPanel} from '../../components/navigation-panel/navigation-panel.tsx';
-import {Logo} from '../../components/logo/logo.tsx';
 import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
 import {CityType} from '../../types/city-type.ts';
+import {Header} from '../../components/header/header.tsx';
 
 export type NotFoundProps = {
   cities: CityType[];
@@ -18,16 +17,7 @@ export function NotFound({cities}: NotFoundProps) {
 
       <body>
         <div className="page page--gray page--main">
-          <header className="header">
-            <div className="container">
-              <div className="header__wrapper">
-                <div className="header__left">
-                  <Logo placingType={'header'} width={81} height={41} />
-                </div>
-                <NavigationPanel />
-              </div>
-            </div>
-          </header>
+          <Header redirectHomeEnable />
 
           <main className="page__main page__main--index page__main--index-empty">
             <h1 className="visually-hidden">Cities</h1>

@@ -12,9 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        cities={Object.keys(Cities).map((name) => Cities[name])}
-      />
+      <App cities={Object.keys(Cities).map((name) => Cities[name])} />
     </Provider>
   </React.StrictMode>
 );
