@@ -2,15 +2,15 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
-import {MapPointType} from '../../types/map-point-type.ts';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
 import {CityType} from '../../types/city-type.ts';
+import {OfferPreviewType} from '../../types/offer-preview-type.ts';
 
 type MapProps = {
   city: CityType;
-  points: MapPointType[];
+  offers: OfferPreviewType[];
   styleBlockName: string;
-  selectedPoint?: MapPointType;
+  selectedOffer?: OfferPreviewType;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export function Map({ city, points, styleBlockName, selectedPoint }: MapProps) {
+export function Map({ city, offers, styleBlockName, selectedOffer }: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city.location);
 
@@ -40,15 +40,15 @@ export function Map({ city, points, styleBlockName, selectedPoint }: MapProps) {
       );
 
       const markerLayer = layerGroup().addTo(map);
-      points.forEach((point) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
-          lat: point.latitude,
-          lng: point.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.id === selectedPoint.id
+            selectedOffer !== undefined && offer.id === selectedOffer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -59,7 +59,7 @@ export function Map({ city, points, styleBlockName, selectedPoint }: MapProps) {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, city, points, selectedPoint]);
+  }, [map, city, offers, selectedOffer]);
 
   return <section className={styleBlockName} ref={mapRef}></section>;
 }

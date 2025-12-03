@@ -1,9 +1,9 @@
 import {Dispatch, SetStateAction} from 'react';
 import OfferCard from '../offer-card/offer-card.tsx';
-import {OfferType} from '../../types/offer-type.ts';
+import {OfferPreviewType} from '../../types/offer-preview-type.ts';
 
 export type OfferListProps = {
-  offers: OfferType[];
+  offers: OfferPreviewType[];
   stylesId: string;
   activeOfferCardIdDispatcher: Dispatch<SetStateAction<string>>;
 }

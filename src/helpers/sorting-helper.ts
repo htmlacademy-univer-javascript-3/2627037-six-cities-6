@@ -1,7 +1,7 @@
-import {OfferType} from '../types/offer-type.ts';
+import {OfferPreviewType} from '../types/offer-preview-type.ts';
 import {Sorting} from '../const.ts';
 
-export function sortOffers(offers: OfferType[], sorting: string) {
+export function sortOffers(offers: OfferPreviewType[], sorting: string) {
   switch (sorting) {
     case Sorting.PriceLowToHigh:
       return offers.sort((x, y) => x.price - y.price);

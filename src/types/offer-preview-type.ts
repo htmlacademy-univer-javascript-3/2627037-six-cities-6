@@ -1,8 +1,7 @@
 import {CityType} from './city-type.ts';
 import {LocationType} from './location-type.ts';
-import {UserViewType} from './user-view-type.ts';
 
-export type OfferType = {
+export type OfferPreviewType = {
   id: string;
   title: string;
   type: string;
@@ -12,10 +11,5 @@ export type OfferType = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  description: string;
-  bedrooms: number;
-  goods: string[];
-  host: UserViewType;
-  images: string[];
-  maxAdults: number;
+  previewImage: string;
 }
