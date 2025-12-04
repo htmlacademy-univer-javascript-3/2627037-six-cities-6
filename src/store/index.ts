@@ -1,12 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {reducer} from './reducer.ts';
-import {createAPI} from '../api/api.ts';
-import {checkLoginStatusAction} from '../api/login.ts';
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from './reducer.ts';
+import { createAPI } from '../api/api.ts';
+import { checkLoginStatusAction } from '../api/login.ts';
 
 export const api = createAPI();
 
 export const store = configureStore({
-  reducer: reducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {

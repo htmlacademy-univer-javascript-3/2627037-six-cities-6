@@ -1,14 +1,14 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { CityType } from '../../types/city-type.ts';
+import Header from '../../components/header/header.tsx';
+import LocationsPanel from '../../components/locations-panel/locations-panel.tsx';
 import '../../../markup/css/main.css';
-import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
-import {CityType} from '../../types/city-type.ts';
-import {Header} from '../../components/header/header.tsx';
 
-export type NotFoundProps = {
+type NotFoundProps = {
   cities: CityType[];
 }
 
-export function NotFound({cities}: NotFoundProps) {
+export function NotFound({ cities }: NotFoundProps) {
   return (
     <html lang="en">
       <head>
@@ -17,7 +17,7 @@ export function NotFound({cities}: NotFoundProps) {
 
       <body>
         <div className="page page--gray page--main">
-          <Header redirectHomeEnable />
+          <Header redirectHomeEnable hasNavigationPanel />
 
           <main className="page__main page__main--index page__main--index-empty">
             <h1 className="visually-hidden">Cities</h1>

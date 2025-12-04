@@ -1,28 +1,31 @@
-import {useEffect} from 'react';
-import {Navigate, useParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import '../../../markup/css/main.css';
-import {OfferList} from '../../components/offer-list/offer-list.tsx';
+import { useEffect } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { getNearOffersAction, getOfferAction } from '../../api/offers.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
+import { NotFound } from '../not-found/not-found.tsx';
+import { calculateRatingWidth } from '../../helpers/markup-styles-provider.ts';
+import { getCommentsAction } from '../../api/comments.ts';
+import { CityType } from '../../types/city-type.ts';
+import Header from '../../components/header/header.tsx';
+import CommentList from '../../components/comment-list/comment-list.tsx';
 import ReviewForm from '../../components/review-form/review-form.tsx';
-import {CommentList} from '../../components/comment-list/comment-list.tsx';
-import {Map} from '../../components/map/map.tsx';
-import {AppDispatch, RootState} from '../../store';
-import {getNearOffersAction, getOfferAction} from '../../api/offers.ts';
-import {AppRoute, AuthorizationStatus} from '../../const.ts';
-import {NotFound} from '../not-found/not-found.tsx';
-import {calculateRatingWidth} from '../../helpers/markup-styles-provider.ts';
-import {getCommentsAction} from '../../api/comments.ts';
-import {CityType} from '../../types/city-type.ts';
-import {Header} from '../../components/header/header.tsx';
+import OfferList from '../../components/offer-list/offer-list.tsx';
+import Map from '../../components/map/map.tsx';
+import '../../../markup/css/main.css';
 
-export type OfferProps = {
+type OfferProps = {
   cities: CityType[];
 }
 
-export function Offer({cities}: OfferProps) {
+export function Offer({ cities }: OfferProps) {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const { offer, nearOffers, comments, authorizationStatus } = useSelector((state: RootState) => state);
+  const offer = useSelector((state: RootState) => state.offers.offer);
+  const nearOffers = useSelector((state: RootState) => state.offers.nearOffers);
+  const comments = useSelector((state: RootState) => state.comments.comments);
+  const authorizationStatus = useSelector((state: RootState) => state.users.authorizationStatus);
 
   useEffect(() => {
     if (id) {
@@ -43,7 +46,7 @@ export function Offer({cities}: OfferProps) {
   return (
     <body>
       <div className="page">
-        <Header redirectHomeEnable />
+        <Header redirectHomeEnable hasNavigationPanel />
 
         <main className="page__main page__main--property">
           <section className="property">
@@ -58,14 +61,10 @@ export function Offer({cities}: OfferProps) {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {offer.isPremium
-                  ?
+                {offer.isPremium &&
                   <div className="property__mark">
                     <span>Premium</span>
-                  </div>
-                  :
-                  <>
-                  </>}
+                  </div>}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
                     {offer.title}
@@ -123,12 +122,7 @@ export function Offer({cities}: OfferProps) {
                       </img>
                     </div>
                     <span className="property__user-name">{offer.host.name}</span>
-                    {offer.host.isPro
-                      ?
-                      <span className="property__user-status">Pro</span>
-                      :
-                      <>
-                      </>}
+                    {offer.host.isPro && <span className="property__user-status">Pro</span>}
                   </div>
                   <div className="property__description">
                     <p className="property__text">{offer.description}</p>

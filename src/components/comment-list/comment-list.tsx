@@ -1,11 +1,12 @@
-import {CommentType} from '../../types/comment-type.ts';
-import {CommentListItem} from '../comment-list-item/comment-list-item.tsx';
+import { memo } from 'react';
+import { CommentType } from '../../types/comment-type.ts';
+import CommentListItem from '../comment-list-item/comment-list-item.tsx';
 
-export type CommentListProps = {
+type CommentListProps = {
   comments: CommentType[];
 }
 
-export function CommentList({comments}: CommentListProps) {
+function CommentList({ comments }: CommentListProps) {
   return (
     <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
@@ -15,3 +16,7 @@ export function CommentList({comments}: CommentListProps) {
     </>
   );
 }
+
+const CommentListMemo = memo(CommentList);
+CommentListMemo.displayName = 'CommentListMemo';
+export default CommentListMemo;

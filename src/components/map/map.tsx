@@ -1,10 +1,10 @@
-import {useRef, useEffect} from 'react';
-import {Icon, Marker, layerGroup} from 'leaflet';
+import { useRef, useEffect, memo } from 'react';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
+import { CityType } from '../../types/city-type.ts';
+import { OfferPreviewType } from '../../types/offer-preview-type.ts';
 import useMap from '../../hooks/use-map';
-import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
-import {CityType} from '../../types/city-type.ts';
-import {OfferPreviewType} from '../../types/offer-preview-type.ts';
 
 type MapProps = {
   city: CityType;
@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export function Map({ city, offers, styleBlockName, selectedOffer }: MapProps) {
+function Map({ city, offers, styleBlockName, selectedOffer }: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city.location);
 
@@ -63,3 +63,7 @@ export function Map({ city, offers, styleBlockName, selectedOffer }: MapProps) {
 
   return <section className={styleBlockName} ref={mapRef}></section>;
 }
+
+const MapMemo = memo(Map);
+MapMemo.displayName = 'MapMemo';
+export default MapMemo;

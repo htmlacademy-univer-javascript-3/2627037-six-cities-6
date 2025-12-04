@@ -1,16 +1,16 @@
-import {Dispatch, SetStateAction} from 'react';
+import { Dispatch, memo, SetStateAction } from 'react';
 import classNames from 'classnames';
+import { OfferPreviewType } from '../../types/offer-preview-type.ts';
+import { calculateRatingWidth, getOfferCardStyle } from '../../helpers/markup-styles-provider.ts';
 import '../../../markup/css/main.css';
-import {OfferPreviewType} from '../../types/offer-preview-type.ts';
-import {calculateRatingWidth, getOfferCardStyle} from '../../helpers/markup-styles-provider.ts';
 
-export type OfferCardProps = {
+type OfferCardProps = {
   offer: OfferPreviewType;
   activeOfferCardIdDispatcher: Dispatch<SetStateAction<string>>;
   stylesId: string;
 }
 
-export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}: OfferCardProps) {
+function OfferCard({ offer, activeOfferCardIdDispatcher, stylesId }: OfferCardProps) {
   const styles = getOfferCardStyle(stylesId);
   const favoriteOfferCard = classNames(
     'place-card__info', {
@@ -37,13 +37,10 @@ export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}
       onMouseLeave={handleMouseLeave}
       className={`${styles.block}__card place-card`}
     >
-      {
-        offer.isPremium && (
-          <div className="place-card__mark">
-            <span>Premium</span>
-          </div>
-        )
-      }
+      {offer.isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
 
       <div className={`${styles.block}__image-wrapper place-card__image-wrapper`}>
         <a href={`/offer/${offer.id}`}>
@@ -84,3 +81,7 @@ export default function OfferCard({offer, activeOfferCardIdDispatcher, stylesId}
     </article>
   );
 }
+
+const OfferCardMemo = memo(OfferCard);
+OfferCardMemo.displayName = 'OfferCardMemo';
+export default OfferCardMemo;

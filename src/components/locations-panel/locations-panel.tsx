@@ -1,20 +1,21 @@
+import { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../store/reducer.ts';
-import {changeCityAction, changeLocationAction} from '../../store/action.ts';
-import {CityType} from '../../types/city-type.ts';
+import { changeCityHandler, changeLocationHandler } from '../../store/action.ts';
+import { CityType } from '../../types/city-type.ts';
+import { RootState } from '../../store';
 
-export type LocationsPanelProps = {
+type LocationsPanelProps = {
   cities: CityType[];
 }
 
-export function LocationsPanel({ cities }: LocationsPanelProps) {
+function LocationsPanel({ cities }: LocationsPanelProps) {
   const dispatch = useDispatch();
-  const currentCity = useSelector((state: State) => state.city);
+  const currentCity = useSelector((state: RootState) => state.locations.city);
 
   const handleLocationClick = (city: CityType) => {
-    dispatch(changeCityAction(city));
-    dispatch(changeLocationAction(city.location));
+    dispatch(changeCityHandler(city));
+    dispatch(changeLocationHandler(city.location));
   };
 
   const locationTabs = (city: CityType) => classNames(
@@ -44,3 +45,7 @@ export function LocationsPanel({ cities }: LocationsPanelProps) {
     </div>
   );
 }
+
+const LocationsPanelMemo = memo(LocationsPanel);
+LocationsPanelMemo.displayName = 'LocationsPanelMemo';
+export default LocationsPanelMemo;

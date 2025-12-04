@@ -1,13 +1,13 @@
-import {CSSProperties} from 'react';
+import { CSSProperties, memo } from 'react';
 
-export type LogoProps = {
+type LogoProps = {
   placingType: string;
   width: CSSProperties['width'];
   height: CSSProperties['height'];
   link?: string;
 }
 
-export function Logo({placingType, link, width, height}: LogoProps) {
+function Logo({ placingType, link, width, height }: LogoProps) {
   return (
     <a
       className={`${link === undefined ? `${placingType}__logo-link--active ` : ''}${placingType}__logo-link`}
@@ -24,3 +24,7 @@ export function Logo({placingType, link, width, height}: LogoProps) {
     </a>
   );
 }
+
+const LogoMemo = memo(Logo);
+LogoMemo.displayName = 'LogoMemo';
+export default LogoMemo;

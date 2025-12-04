@@ -1,6 +1,6 @@
+import Logo from '../../components/logo/logo.tsx';
+import Header from '../../components/header/header.tsx';
 import '../../../markup/css/main.css';
-import {Logo} from '../../components/logo/logo.tsx';
-import {Header} from '../../components/header/header.tsx';
 
 export function FavoritesEmpty() {
   return (
@@ -11,7 +11,7 @@ export function FavoritesEmpty() {
 
       <body>
         <div className="page page--favorites-empty">
-          <Header redirectHomeEnable />
+          <Header redirectHomeEnable hasNavigationPanel />
 
           <main className="page__main page__main--favorites page__main--favorites-empty">
             <div className="page__favorites-container container">

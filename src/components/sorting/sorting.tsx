@@ -1,21 +1,21 @@
-import classNames from 'classnames';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sortOffersAction } from '../../store/action';
-import { State } from '../../store/reducer.ts';
+import classNames from 'classnames';
+import { sortOffersHandler } from '../../store/action';
 import { Sorting } from '../../const.ts';
+import { RootState } from '../../store';
 
-export default function SortingOptions() {
+function SortingOptions() {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const activeOption = useSelector((state: State) => state.sorting);
+  const activeOption = useSelector((state: RootState) => state.offers.sorting);
 
   const toggleSortingOptionsMenu = () => {
     setIsOpen((menuOpened) => !menuOpened);
   };
 
   const handleSortingChange = (option: string) => {
-    dispatch(sortOffersAction(option));
+    dispatch(sortOffersHandler(option));
   };
 
   const placesOptions = classNames(
@@ -60,3 +60,7 @@ export default function SortingOptions() {
     </form>
   );
 }
+
+const SortingOptionsMemo = memo(SortingOptions);
+SortingOptionsMemo.displayName = 'SortingOptionsMemo';
+export default SortingOptionsMemo;

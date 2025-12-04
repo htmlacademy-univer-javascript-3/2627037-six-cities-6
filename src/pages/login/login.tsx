@@ -1,16 +1,16 @@
-import {FormEvent, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Link, Navigate} from 'react-router-dom';
+import { FormEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { AppDispatch, RootState } from '../../store';
+import { loginAction } from '../../api/login.ts';
+import Header from '../../components/header/header.tsx';
 import '../../../markup/css/main.css';
-import {AppDispatch, RootState} from '../../store';
-import {loginAction} from '../../api/login.ts';
-import {Header} from '../../components/header/header.tsx';
 
 export function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state.users.user);
 
   if (user !== undefined) {
     return (<Navigate to='/' />);
@@ -29,7 +29,7 @@ export function Login() {
 
       <body>
         <div className="page page--gray page--login">
-          <Header redirectHomeEnable omitNavigationPanel />
+          <Header redirectHomeEnable />
 
           <main className="page__main page__main--login">
             <div className="page__login-container container">

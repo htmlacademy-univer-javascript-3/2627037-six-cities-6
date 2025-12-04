@@ -1,4 +1,4 @@
-import {UserViewType} from './user-view-type.ts';
+import { UserViewType } from './user-view-type.ts';
 
 export type CommentType = {
   id: string;

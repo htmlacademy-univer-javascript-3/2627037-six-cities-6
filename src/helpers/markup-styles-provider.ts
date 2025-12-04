@@ -1,5 +1,5 @@
-import {AppRoute, DefaultStyles, FavoritesStyles, MainStyles, NearPlacesStyles} from '../const.ts';
-import {PageStyles} from '../types/page-styles-type.ts';
+import { AppRoute, DefaultStyles, FavoritesStyles, MainStyles, NearPlacesStyles } from '../const.ts';
+import { PageStyles } from '../types/page-styles-type.ts';
 
 export function getOfferCardStyle(component: string) : PageStyles {
   switch(component) {
