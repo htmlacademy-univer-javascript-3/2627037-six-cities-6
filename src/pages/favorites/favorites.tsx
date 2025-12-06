@@ -1,9 +1,9 @@
+import { AppRoute } from '../../const.ts';
+import { OfferPreviewType } from '../../types/offer-preview-type.ts';
+import Logo from '../../components/logo/logo.tsx';
+import Header from '../../components/header/header.tsx';
+import OfferList from '../../components/offer-list/offer-list.tsx';
 import '../../../markup/css/main.css';
-import {OfferList} from '../../components/offer-list/offer-list.tsx';
-import {AppRoute} from '../../const.ts';
-import {Logo} from '../../components/logo/logo.tsx';
-import {Header} from '../../components/header/header.tsx';
-import {OfferPreviewType} from '../../types/offer-preview-type.ts';
 
 export function Favorites() {
   const offers: OfferPreviewType[] = []; // GET /six-cities/favorite
@@ -16,7 +16,7 @@ export function Favorites() {
 
       <body>
         <div className="page">
-          <Header redirectHomeEnable />
+          <Header redirectHomeEnable hasNavigationPanel />
 
           <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">

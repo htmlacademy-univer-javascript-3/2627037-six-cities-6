@@ -1,5 +1,5 @@
-import axios, {AxiosInstance, InternalAxiosRequestConfig} from 'axios';
-import {getToken} from './token-storage.ts';
+import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import { getToken } from './token-storage.ts';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro';
 const REQUEST_TIMEOUT = 5000;

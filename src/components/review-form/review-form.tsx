@@ -1,10 +1,10 @@
-import {SetStateAction, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { memo, SetStateAction, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { postCommentAction } from '../../api/comments.ts';
 import '../../../markup/css/main.css';
-import {AppDispatch, RootState} from '../../store';
-import {postCommentAction} from '../../api/comments.ts';
 
-export default function ReviewForm() {
+function ReviewForm() {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
@@ -17,14 +17,14 @@ export default function ReviewForm() {
   };
 
   const dispatch = useDispatch<AppDispatch>();
-  const offerId = useSelector((state: RootState) => state.offer?.id);
+  const offer = useSelector((state: RootState) => state.offers.offer);
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    if (!offerId) {
+    if (!offer?.id) {
       return;
     }
-    dispatch(postCommentAction({ offerId: offerId, comment: review, rating: rating }));
+    dispatch(postCommentAction({ offerId: offer?.id, comment: review, rating: rating }));
     setRating(0);
     setReview('');
   };
@@ -90,3 +90,7 @@ export default function ReviewForm() {
     </form>
   );
 }
+
+const ReviewFormMemo = memo(ReviewForm);
+ReviewFormMemo.displayName = 'ReviewFormMemo';
+export default ReviewFormMemo;

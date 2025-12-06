@@ -1,30 +1,30 @@
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {OfferList} from '../../components/offer-list/offer-list.tsx';
-import {AppRoute} from '../../const.ts';
-import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
-import {Map} from '../../components/map/map.tsx';
-import {selectOffersByCity} from '../../store/selector';
-import {State} from '../../store/reducer';
-import {CityType} from '../../types/city-type.ts';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppRoute } from '../../const.ts';
+import { selectOffersByCity } from '../../store/selectors/offersSelector.ts';
+import { CityType } from '../../types/city-type.ts';
+import { sortOffers } from '../../helpers/sorting-helper.ts';
+import { AppDispatch, RootState } from '../../store';
+import { fetchOffersAction } from '../../api/offers.ts';
+import Header from '../../components/header/header.tsx';
 import SortingOptions from '../../components/sorting/sorting.tsx';
-import {sortOffers} from '../../helpers/sorting-helper.ts';
 import Loading from '../../components/loading/loading.tsx';
-import {AppDispatch} from '../../store';
-import {fetchOffersAction} from '../../api/offers.ts';
-import {Header} from '../../components/header/header.tsx';
+import Map from '../../components/map/map.tsx';
+import LocationsPanel from '../../components/locations-panel/locations-panel.tsx';
+import OfferList from '../../components/offer-list/offer-list.tsx';
 
-export type MainProps = {
+type MainProps = {
   cities: CityType[];
 }
 
-export default function Main({cities}: MainProps) {
-  const sorting = useSelector((state: State) => state.sorting);
-  const offers = sortOffers(useSelector(selectOffersByCity), sorting);
+export default function Main({ cities }: MainProps) {
+  const sorting = useSelector((state: RootState) => state.offers.sorting);
+  const offers = useSelector(selectOffersByCity);
+  const sortedOffers = useMemo(() => sortOffers([...offers], sorting), [offers, sorting]);
   const [selectedOfferCardId, setSelectedOfferCardId] = useState('');
   const selectedOffer = offers.find((x) => x.id === selectedOfferCardId);
-  const currentCity = useSelector((state: State) => state.city);
-  const loading = useSelector((state: State) => state.loading);
+  const currentCity = useSelector((state: RootState) => state.locations.city);
+  const loading = useSelector((state: RootState) => state.offers.loading);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Main({cities}: MainProps) {
 
       <body>
         <div className="page page--gray page--main">
-          <Header />
+          <Header hasNavigationPanel />
 
           <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
@@ -51,8 +51,7 @@ export default function Main({cities}: MainProps) {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">
-                    {offers.filter((offer) =>
-                      offer.city.name === currentCity.name).length} places to stay in {currentCity.name}
+                    {offers.length} places to stay in {currentCity.name}
                   </b>
                   <SortingOptions />
                   <div className="cities__places-list places__list tabs__content">
@@ -60,7 +59,7 @@ export default function Main({cities}: MainProps) {
                       ? <Loading />
                       :
                       <OfferList
-                        offers={offers.filter((offer) => offer.city.name === currentCity.name)}
+                        offers={sortedOffers}
                         stylesId={AppRoute.Root}
                         activeOfferCardIdDispatcher={setSelectedOfferCardId}
                       />}
@@ -69,7 +68,7 @@ export default function Main({cities}: MainProps) {
                 <div className="cities__right-section">
                   <Map
                     city={currentCity}
-                    offers={offers.filter((offer) => offer.city.name === currentCity.name)}
+                    offers={offers}
                     selectedOffer={selectedOffer}
                     styleBlockName={'cities__map'}
                   />

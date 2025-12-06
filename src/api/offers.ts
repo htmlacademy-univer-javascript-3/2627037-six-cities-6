@@ -1,10 +1,10 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {fillOffersAction, invokeLoadingAction, setupNearOffersAction, setupOfferAction} from '../store/action.ts';
-import {OfferPreviewType} from '../types/offer-preview-type.ts';
-import {Api} from '../const.ts';
-import {AppDispatch, RootState} from '../store';
-import {OfferType} from '../types/offer-type.ts';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { fillOffersHandler, invokeLoadingHandler, setupNearOffersHandler, setupOfferHandler } from '../store/action.ts';
+import { OfferPreviewType } from '../types/offer-preview-type.ts';
+import { Api } from '../const.ts';
+import { AppDispatch, RootState } from '../store';
+import { OfferType } from '../types/offer-type.ts';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -13,10 +13,10 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
-    dispatch(invokeLoadingAction(true));
+    dispatch(invokeLoadingHandler(true));
     const { data } = await api.get<OfferPreviewType[]>(Api.Offers);
-    dispatch(fillOffersAction(data));
-    dispatch(invokeLoadingAction(false));
+    dispatch(fillOffersHandler(data));
+    dispatch(invokeLoadingHandler(false));
   },
 );
 
@@ -28,7 +28,7 @@ export const getOfferAction = createAsyncThunk<void, string, {
   'data/getOffer',
   async (offerId, { dispatch, extra: api }) => {
     const { data } = await api.get<OfferType>(Api.Offer.replace(':offerId', offerId));
-    dispatch(setupOfferAction(data));
+    dispatch(setupOfferHandler(data));
   },
 );
 
@@ -40,6 +40,6 @@ export const getNearOffersAction = createAsyncThunk<void, string, {
   'data/getNearOffers',
   async (offerId, { dispatch, extra: api }) => {
     const { data } = await api.get<OfferPreviewType[]>(Api.NearOffers.replace(':offerId', offerId));
-    dispatch(setupNearOffersAction(data));
+    dispatch(setupNearOffersHandler(data));
   },
 );

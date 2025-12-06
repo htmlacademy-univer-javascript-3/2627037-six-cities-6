@@ -1,11 +1,11 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, RootState} from '../store';
-import {UserType} from '../types/user-type.ts';
-import {Api, AuthorizationStatus} from '../const.ts';
-import {UserAuthType} from '../types/user-auth-type.ts';
-import {updateAuthorizationAction, updateUserAction} from '../store/action.ts';
-import {storeToken} from './token-storage.ts';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AppDispatch, RootState } from '../store';
+import { UserType } from '../types/user-type.ts';
+import { Api, AuthorizationStatus } from '../const.ts';
+import { UserAuthType } from '../types/user-auth-type.ts';
+import { updateAuthorizationHandler, updateUserHandler } from '../store/action.ts';
+import { storeToken } from './token-storage.ts';
 
 export const loginAction = createAsyncThunk<void, UserAuthType, {
   dispatch: AppDispatch;
@@ -17,11 +17,11 @@ export const loginAction = createAsyncThunk<void, UserAuthType, {
     try {
       const { data } = await api.post<UserType>(Api.Login, { email, password });
       storeToken(data.token);
-      dispatch(updateUserAction(data));
-      dispatch(updateAuthorizationAction(AuthorizationStatus.Authorized));
+      dispatch(updateUserHandler(data));
+      dispatch(updateAuthorizationHandler(AuthorizationStatus.Authorized));
     } catch {
-      dispatch(updateUserAction(undefined));
-      dispatch(updateAuthorizationAction(AuthorizationStatus.NonAuthorized));
+      dispatch(updateUserHandler(undefined));
+      dispatch(updateAuthorizationHandler(AuthorizationStatus.NonAuthorized));
     }
   },
 );
@@ -35,7 +35,7 @@ export const checkLoginStatusAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<UserType>(Api.Login);
     storeToken(data.token);
-    dispatch(updateUserAction(data));
-    dispatch(updateAuthorizationAction(AuthorizationStatus.Authorized));
+    dispatch(updateUserHandler(data));
+    dispatch(updateAuthorizationHandler(AuthorizationStatus.Authorized));
   },
 );

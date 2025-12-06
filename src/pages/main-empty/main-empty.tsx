@@ -1,13 +1,13 @@
+import { CityType } from '../../types/city-type.ts';
+import Header from '../../components/header/header.tsx';
+import LocationsPanel from '../../components/locations-panel/locations-panel.tsx';
 import '../../../markup/css/main.css';
-import {LocationsPanel} from '../../components/locations-panel/locations-panel.tsx';
-import {CityType} from '../../types/city-type.ts';
-import {Header} from '../../components/header/header.tsx';
 
-export type MainEmptyProps = {
+type MainEmptyProps = {
   cities: CityType[];
 }
 
-export function MainEmpty({cities}: MainEmptyProps) {
+export function MainEmpty({ cities }: MainEmptyProps) {
   return (
     <html lang="en">
       <head>
@@ -16,7 +16,7 @@ export function MainEmpty({cities}: MainEmptyProps) {
 
       <body>
         <div className="page page--gray page--main">
-          <Header />
+          <Header hasNavigationPanel />
 
           <main className="page__main page__main--index page__main--index-empty">
             <h1 className="visually-hidden">Cities</h1>

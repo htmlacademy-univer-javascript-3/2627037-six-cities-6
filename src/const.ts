@@ -1,4 +1,4 @@
-import {CityType} from './types/city-type.ts';
+import { CityType } from './types/city-type.ts';
 
 export const AppRoute = {
   Root: '/',

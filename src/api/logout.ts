@@ -1,9 +1,9 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, RootState} from '../store';
-import {Api, AuthorizationStatus} from '../const.ts';
-import {updateAuthorizationAction, updateUserAction} from '../store/action.ts';
-import {removeToken} from './token-storage.ts';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AppDispatch, RootState } from '../store';
+import { Api, AuthorizationStatus } from '../const.ts';
+import { updateAuthorizationHandler, updateUserHandler } from '../store/action.ts';
+import { removeToken } from './token-storage.ts';
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -14,7 +14,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(Api.Logout);
     removeToken();
-    dispatch(updateUserAction(undefined));
-    dispatch(updateAuthorizationAction(AuthorizationStatus.NonAuthorized));
+    dispatch(updateUserHandler(undefined));
+    dispatch(updateAuthorizationHandler(AuthorizationStatus.NonAuthorized));
   },
 );

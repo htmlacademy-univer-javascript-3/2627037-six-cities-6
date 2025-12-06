@@ -1,12 +1,13 @@
-import {Logo} from '../logo/logo.tsx';
-import {NavigationPanel} from '../navigation-panel/navigation-panel.tsx';
+import { memo } from 'react';
+import Logo from '../logo/logo.tsx';
+import NavigationPanel from '../navigation-panel/navigation-panel.tsx';
 
-export type HeaderProps = {
+type HeaderProps = {
   redirectHomeEnable?: boolean;
-  omitNavigationPanel?: boolean;
+  hasNavigationPanel?: boolean;
 }
 
-export function Header({redirectHomeEnable, omitNavigationPanel}: HeaderProps) {
+function Header({ redirectHomeEnable, hasNavigationPanel }: HeaderProps) {
   return (
     <header className="header">
       <div className="container">
@@ -14,14 +15,13 @@ export function Header({redirectHomeEnable, omitNavigationPanel}: HeaderProps) {
           <div className="header__left">
             <Logo placingType={'header'} link={redirectHomeEnable ? '/' : ''} width={81} height={41} />
           </div>
-          {omitNavigationPanel
-            ?
-            <>
-            </>
-            :
-            <NavigationPanel />}
+          {hasNavigationPanel && <NavigationPanel />}
         </div>
       </div>
     </header>
   );
 }
+
+const HeaderMemo = memo(Header);
+HeaderMemo.displayName = 'HeaderMemo';
+export default HeaderMemo;

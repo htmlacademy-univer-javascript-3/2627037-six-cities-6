@@ -1,11 +1,12 @@
-import {CommentType} from '../../types/comment-type.ts';
-import {calculateRatingWidth} from '../../helpers/markup-styles-provider.ts';
+import { CommentType } from '../../types/comment-type.ts';
+import { calculateRatingWidth } from '../../helpers/markup-styles-provider.ts';
+import { memo } from 'react';
 
-export type CommentListItemProps = {
+type CommentListItemProps = {
   comment: CommentType;
 }
 
-export function CommentListItem({comment}: CommentListItemProps) {
+function CommentListItem({ comment }: CommentListItemProps) {
   const date = new Date(comment.date);
 
   return (
@@ -43,3 +44,7 @@ export function CommentListItem({comment}: CommentListItemProps) {
     </li>
   );
 }
+
+const CommentListItemMemo = memo(CommentListItem);
+CommentListItemMemo.displayName = 'CommentListItemMemo';
+export default CommentListItemMemo;

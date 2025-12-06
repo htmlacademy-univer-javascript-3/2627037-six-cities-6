@@ -1,14 +1,14 @@
-import {FormEvent} from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../store';
-import {logoutAction} from '../../api/logout.ts';
-import {AuthorizationStatus} from '../../const.ts';
+import { FormEvent, memo } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { logoutAction } from '../../api/logout.ts';
+import { AuthorizationStatus } from '../../const.ts';
 
-export function NavigationPanel() {
+function NavigationPanel() {
   const dispatch = useDispatch<AppDispatch>();
-  const authorizationStatus = useSelector((state: RootState) => state.authorizationStatus);
-  const user = useSelector((state: RootState) => state.user);
+  const authorizationStatus = useSelector((state: RootState) => state.users.authorizationStatus);
+  const user = useSelector((state: RootState) => state.users.user);
 
   const handleSignOut = (event: FormEvent) => {
     event.preventDefault();
@@ -46,3 +46,7 @@ export function NavigationPanel() {
     </nav>
   );
 }
+
+const NavigationPanelMemo = memo(NavigationPanel);
+NavigationPanelMemo.displayName = 'NavigationPanelMemo';
+export default NavigationPanelMemo;

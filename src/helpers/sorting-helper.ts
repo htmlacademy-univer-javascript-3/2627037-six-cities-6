@@ -1,5 +1,5 @@
-import {OfferPreviewType} from '../types/offer-preview-type.ts';
-import {Sorting} from '../const.ts';
+import { OfferPreviewType } from '../types/offer-preview-type.ts';
+import { Sorting } from '../const.ts';
 
 export function sortOffers(offers: OfferPreviewType[], sorting: string) {
   switch (sorting) {
