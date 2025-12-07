@@ -1,8 +1,13 @@
 import { Dispatch, memo, SetStateAction } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { OfferPreviewType } from '../../types/offer-preview-type.ts';
 import { calculateRatingWidth, getOfferCardStyle } from '../../helpers/markup-styles-provider.ts';
+import { AppDispatch, RootState } from '../../store';
+import { updateFavoriteOffersHandler } from '../../store/action.ts';
 import '../../../markup/css/main.css';
+import {useNavigate} from 'react-router-dom';
+import {AuthorizationStatus} from '../../const.ts';
 
 type OfferCardProps = {
   offer: OfferPreviewType;
@@ -11,6 +16,12 @@ type OfferCardProps = {
 }
 
 function OfferCard({ offer, activeOfferCardIdDispatcher, stylesId }: OfferCardProps) {
+  const authorizationStatus = useSelector((state: RootState) => state.users.authorizationStatus);
+  const favoriteOffers = useSelector((state: RootState) => state.offers.favoriteOffers);
+  const isFavorite = favoriteOffers.some((favoriteOffer) => favoriteOffer.id === offer.id);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const styles = getOfferCardStyle(stylesId);
   const favoriteOfferCard = classNames(
     'place-card__info', {
@@ -19,7 +30,7 @@ function OfferCard({ offer, activeOfferCardIdDispatcher, stylesId }: OfferCardPr
   );
   const favoriteOffer = classNames(
     'place-card__bookmark-button button', {
-      'place-card__bookmark-button--active': offer.isFavorite
+      'place-card__bookmark-button--active': isFavorite
     }
   );
 
@@ -29,6 +40,14 @@ function OfferCard({ offer, activeOfferCardIdDispatcher, stylesId }: OfferCardPr
 
   const handleMouseLeave = () => {
     activeOfferCardIdDispatcher('');
+  };
+
+  const handleBookmarkClick = () => {
+    if (authorizationStatus !== AuthorizationStatus.Authorized) {
+      navigate('/login');
+    } else {
+      dispatch(updateFavoriteOffersHandler(offer));
+    }
   };
 
   return (
@@ -60,7 +79,7 @@ function OfferCard({ offer, activeOfferCardIdDispatcher, stylesId }: OfferCardPr
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={favoriteOffer} type="button">
+          <button className={favoriteOffer} type="button" onClick={handleBookmarkClick}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

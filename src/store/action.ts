@@ -18,6 +18,8 @@ const Action = {
   SETUP_NEAR_OFFERS: 'SETUP_NEAR_OFFERS',
   SETUP_COMMENTS: 'SETUP_COMMENTS',
   UPDATE_COMMENTS: 'UPDATE_COMMENTS',
+  SETUP_FAVORITE_OFFERS: 'SETUP_FAVORITE_OFFERS',
+  UPDATE_FAVORITE_OFFERS: 'UPDATE_FAVORITE_OFFERS',
 };
 
 export const changeCityHandler = createAction(Action.CHANGE_CITY, (value: CityType) => ({
@@ -61,5 +63,13 @@ export const setupCommentsHandler = createAction(Action.SETUP_COMMENTS, (value: 
 }));
 
 export const updateCommentsHandler = createAction(Action.UPDATE_COMMENTS, (value: CommentType) => ({
+  payload: value,
+}));
+
+export const setupFavoriteOffersHandler = createAction(Action.SETUP_FAVORITE_OFFERS, (value: OfferPreviewType[]) => ({
+  payload: value,
+}));
+
+export const updateFavoriteOffersHandler = createAction(Action.UPDATE_FAVORITE_OFFERS, (value: OfferPreviewType) => ({
   payload: value,
 }));

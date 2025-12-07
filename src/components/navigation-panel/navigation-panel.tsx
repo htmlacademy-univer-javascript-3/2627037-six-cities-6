@@ -9,6 +9,7 @@ function NavigationPanel() {
   const dispatch = useDispatch<AppDispatch>();
   const authorizationStatus = useSelector((state: RootState) => state.users.authorizationStatus);
   const user = useSelector((state: RootState) => state.users.user);
+  const favorites = useSelector((state: RootState) => state.offers.favoriteOffers);
 
   const handleSignOut = (event: FormEvent) => {
     event.preventDefault();
@@ -27,7 +28,7 @@ function NavigationPanel() {
                   <img src={user.avatarUrl} alt='User avatar'></img>
                 </div>
                 <span className="header__user-name user__name">{user.email}</span>
-                <span className="header__favorite-count">3</span>
+                <span className="header__favorite-count">{favorites.length}</span>
               </Link>
             </li>
             <li className="header__nav-item">
