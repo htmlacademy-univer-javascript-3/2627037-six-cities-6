@@ -21,6 +21,8 @@ export const Api = {
   Comments: '/six-cities/comments/:offerId',
   Login: '/six-cities/login',
   Logout: '/six-cities/logout',
+  GetFavorite: '/six-cities/favorite',
+  PostFavorite: '/six-cities/favorite/:offerId/:status',
 };
 
 export const Sorting = {

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fillOffersHandler,
-  invokeLoadingHandler,
+  invokeLoadingHandler, setupFavoriteOffersHandler,
   setupNearOffersHandler,
   setupOfferHandler,
-  sortOffersHandler
+  sortOffersHandler, updateFavoriteOffersHandler
 } from '../action.ts';
 import { OfferPreviewType } from '../../types/offer-preview-type.ts';
 import { Sorting } from '../../const.ts';
@@ -16,6 +16,7 @@ interface OffersState {
   loading: boolean;
   offer?: OfferType;
   nearOffers: OfferPreviewType[];
+  favoriteOffers: OfferPreviewType[];
 }
 
 const initialState: OffersState = {
@@ -23,6 +24,7 @@ const initialState: OffersState = {
   sorting: Sorting.Popular,
   loading: false,
   nearOffers: [],
+  favoriteOffers: [],
 };
 
 const offersSlice = createSlice({
@@ -45,6 +47,17 @@ const offersSlice = createSlice({
       })
       .addCase(setupNearOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
         state.nearOffers = action.payload;
+      })
+      .addCase(setupFavoriteOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(updateFavoriteOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType>) => {
+        const offerPresented = state.favoriteOffers.find((x) => x.id === action.payload.id);
+        if (offerPresented) {
+          state.favoriteOffers = state.favoriteOffers.filter((x) => x.id !== action.payload.id);
+        } else {
+          state.favoriteOffers.push(action.payload);
+        }
       });
   },
 });
