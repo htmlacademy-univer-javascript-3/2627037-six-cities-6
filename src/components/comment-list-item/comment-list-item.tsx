@@ -21,7 +21,8 @@ function CommentListItem({ comment }: CommentListItemProps) {
             width="54"
             height="54"
             alt="Reviews avatar"
-          ></img>
+          >
+          </img>
         </div>
         <span className="reviews__user-name">{comment.user.name}</span>
       </div>
@@ -30,7 +31,8 @@ function CommentListItem({ comment }: CommentListItemProps) {
           <div className="reviews__stars rating__stars">
             <span
               style={{ width: `${calculateRatingWidth(comment.rating)}%` }}
-            ></span>
+            >
+            </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

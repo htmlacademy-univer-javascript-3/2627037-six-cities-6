@@ -69,7 +69,8 @@ export default function OfferCard({
             width={styles.imageWidth}
             height={styles.imageHeight}
             alt="Place image"
-          ></img>
+          >
+          </img>
         </a>
       </div>
       <div className={favoriteOfferCard}>
@@ -88,7 +89,8 @@ export default function OfferCard({
           <div className="place-card__stars rating__stars">
             <span
               style={{ width: `${calculateRatingWidth(offer.rating)}%` }}
-            ></span>
+            >
+            </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -8,7 +8,8 @@ function Loading() {
         height={60}
         src="../../../markup/img/loading.gif"
         alt="Loading..."
-      ></img>
+      >
+      </img>
     </div>
   );
 }

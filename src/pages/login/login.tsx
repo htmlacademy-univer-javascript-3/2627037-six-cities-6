@@ -47,7 +47,8 @@ export function Login() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                    ></input>
+                    >
+                    </input>
                   </div>
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">Password</label>
@@ -59,7 +60,8 @@ export function Login() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                    ></input>
+                    >
+                    </input>
                   </div>
                   <button
                     className="login__submit form__submit button"

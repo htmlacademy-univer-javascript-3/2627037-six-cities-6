@@ -81,7 +81,8 @@ export function Offer({ cities }: OfferProps) {
                           className="property__image"
                           src={image}
                           alt="Offer photo"
-                        ></img>
+                        >
+                        </img>
                       </div>
                     ))}
                   </div>
@@ -107,7 +108,8 @@ export function Offer({ cities }: OfferProps) {
                           style={{
                             width: `${calculateRatingWidth(offer.rating)}%`,
                           }}
-                        ></span>
+                        >
+                        </span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                       <span className="property__rating-value rating__value">
@@ -153,7 +155,8 @@ export function Offer({ cities }: OfferProps) {
                             width="74"
                             height="74"
                             alt="Host avatar"
-                          ></img>
+                          >
+                          </img>
                         </div>
                         <span className="property__user-name">
                           {offer.host.name}
