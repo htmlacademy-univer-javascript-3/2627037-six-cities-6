@@ -22,7 +22,8 @@ function Logo({ placingType, link, width, height }: LogoProps) {
         alt="6 cities logo"
         width={width}
         height={height}
-      ></img>
+      >
+      </img>
     </a>
   );
 }
