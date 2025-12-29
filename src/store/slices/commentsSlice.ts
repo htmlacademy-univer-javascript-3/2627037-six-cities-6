@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { setupCommentsHandler, updateCommentsHandler } from '../action.ts';
+
+import {
+  getCommentsAction,
+  postCommentAction,
+} from '../../api/comments/comments.ts';
 import { CommentType } from '../../types/comment-type.ts';
 
-interface CommentsState {
+export interface CommentsState {
   comments: CommentType[];
 }
 
@@ -16,12 +20,23 @@ const commentsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(setupCommentsHandler, (state: CommentsState, action: PayloadAction<CommentType[]>) => {
-        state.comments = action.payload;
-      })
-      .addCase(updateCommentsHandler, (state: CommentsState, action: PayloadAction<CommentType>) => {
-        state.comments.push(action.payload);
-      });
+      .addCase(
+        getCommentsAction.fulfilled,
+        (state: CommentsState, action: PayloadAction<CommentType[]>) => {
+          state.comments = action.payload;
+        },
+      )
+      .addCase(
+        postCommentAction.fulfilled,
+        (
+          state: CommentsState,
+          action: PayloadAction<CommentType | undefined>,
+        ) => {
+          if (action.payload) {
+            state.comments.push(action.payload);
+          }
+        },
+      );
   },
 });
 

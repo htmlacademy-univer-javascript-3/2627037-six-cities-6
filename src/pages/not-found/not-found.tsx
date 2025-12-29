@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import { CityType } from '../../types/city-type.ts';
+
 import Header from '../../components/header/header.tsx';
 import LocationsPanel from '../../components/locations-panel/locations-panel.tsx';
+import { CityType } from '../../types/city-type.ts';
 import '../../../markup/css/main.css';
 
 type NotFoundProps = {
   cities: CityType[];
-}
+};
 
 export function NotFound({ cities }: NotFoundProps) {
   return (
@@ -27,10 +28,8 @@ export function NotFound({ cities }: NotFoundProps) {
                 <section className="cities__no-places">
                   <div className="cities__status-wrapper tabs__content">
                     <b className="cities__status">404</b>
-                    <p className="cities__status-description">
-                      Page Not Found
-                    </p>
-                    <Link to='/'>
+                    <p className="cities__status-description">Page Not Found</p>
+                    <Link to="/">
                       <button className="button__homepage button">
                         Homepage
                       </button>

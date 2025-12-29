@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { checkLoginStatusAction, loginAction } from '../../api/login/login.ts';
+import { logoutAction } from '../../api/logout/logout.ts';
 import { AuthorizationStatus } from '../../const.ts';
-import { updateAuthorizationHandler, updateUserHandler } from '../action.ts';
 import { UserType } from '../../types/user-type.ts';
 
 interface UsersState {
@@ -18,12 +20,30 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(updateAuthorizationHandler, (state: UsersState, action: PayloadAction<string>) => {
-        state.authorizationStatus = action.payload;
+      .addCase(
+        loginAction.fulfilled,
+        (state: UsersState, action: PayloadAction<UserType | undefined>) => {
+          state.user = action.payload;
+          state.authorizationStatus =
+            state.user !== undefined
+              ? AuthorizationStatus.Authorized
+              : AuthorizationStatus.NonAuthorized;
+        },
+      )
+      .addCase(logoutAction.fulfilled, (state: UsersState) => {
+        state.user = undefined;
+        state.authorizationStatus = AuthorizationStatus.NonAuthorized;
       })
-      .addCase(updateUserHandler, (state: UsersState, action: PayloadAction<UserType | undefined>) => {
-        state.user = action.payload;
-      });
+      .addCase(
+        checkLoginStatusAction.fulfilled,
+        (state: UsersState, action: PayloadAction<UserType | undefined>) => {
+          state.user = action.payload;
+          state.authorizationStatus =
+            state.user !== undefined
+              ? AuthorizationStatus.Authorized
+              : AuthorizationStatus.NonAuthorized;
+        },
+      );
   },
 });
 

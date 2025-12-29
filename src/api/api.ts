@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+
 import { getToken } from './token-storage.ts';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro';
@@ -18,7 +19,7 @@ export function createAPI(): AxiosInstance {
 
       return config;
     },
-    (error) => Promise.reject(error)
+    (error) => Promise.reject(error),
   );
 
   return api;
