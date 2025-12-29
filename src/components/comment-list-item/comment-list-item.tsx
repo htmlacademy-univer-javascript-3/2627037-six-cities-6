@@ -1,10 +1,12 @@
-import { CommentType } from '../../types/comment-type.ts';
-import { calculateRatingWidth } from '../../helpers/markup-styles-provider.ts';
 import { memo } from 'react';
+
+import { getFormatedDate } from '../../helpers/datetime-helper.ts';
+import { calculateRatingWidth } from '../../helpers/markup-styles-provider.ts';
+import { CommentType } from '../../types/comment-type.ts';
 
 type CommentListItemProps = {
   comment: CommentType;
-}
+};
 
 function CommentListItem({ comment }: CommentListItemProps) {
   const date = new Date(comment.date);
@@ -19,26 +21,22 @@ function CommentListItem({ comment }: CommentListItemProps) {
             width="54"
             height="54"
             alt="Reviews avatar"
-          >
-          </img>
+          ></img>
         </div>
         <span className="reviews__user-name">{comment.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${calculateRatingWidth(comment.rating)}%`}}></span>
+            <span
+              style={{ width: `${calculateRatingWidth(comment.rating)}%` }}
+            ></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">
-          {comment.comment}
-        </p>
-        <time
-          className="reviews__time"
-          dateTime={`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`}
-        >
-          {date.toLocaleString('en', { month: 'long' })} {date.getFullYear()}
+        <p className="reviews__text">{comment.comment}</p>
+        <time className="reviews__time" dateTime={getFormatedDate(date)}>
+          {date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
         </time>
       </div>
     </li>

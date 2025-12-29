@@ -12,4 +12,4 @@ export type OfferPreviewType = {
   isPremium: boolean;
   rating: number;
   previewImage: string;
-}
+};

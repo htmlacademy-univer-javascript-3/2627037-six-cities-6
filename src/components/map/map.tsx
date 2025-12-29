@@ -1,10 +1,11 @@
-import { useRef, useEffect, memo } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
+import { useRef, useEffect, memo } from 'react';
+
 import 'leaflet/dist/leaflet.css';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
+import useMap from '../../hooks/use-map';
 import { CityType } from '../../types/city-type.ts';
 import { OfferPreviewType } from '../../types/offer-preview-type.ts';
-import useMap from '../../hooks/use-map';
 
 type MapProps = {
   city: CityType;
@@ -36,7 +37,7 @@ function Map({ city, offers, styleBlockName, selectedOffer }: MapProps) {
           lat: city.location.latitude,
           lng: city.location.longitude,
         },
-        13
+        13,
       );
 
       const markerLayer = layerGroup().addTo(map);
@@ -50,7 +51,7 @@ function Map({ city, offers, styleBlockName, selectedOffer }: MapProps) {
           .setIcon(
             selectedOffer !== undefined && offer.id === selectedOffer.id
               ? currentCustomIcon
-              : defaultCustomIcon
+              : defaultCustomIcon,
           )
           .addTo(markerLayer);
       });

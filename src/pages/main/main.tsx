@@ -1,47 +1,42 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { AppRoute } from '../../const.ts';
-import { selectOffersByCity } from '../../store/selectors/offersSelector.ts';
-import { CityType } from '../../types/city-type.ts';
-import { sortOffers } from '../../helpers/sorting-helper.ts';
-import { AppDispatch, RootState } from '../../store';
-import { fetchOffersAction } from '../../api/offers.ts';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getOffersAction } from '../../api/offers/offers.ts';
 import Header from '../../components/header/header.tsx';
-import SortingOptions from '../../components/sorting/sorting.tsx';
 import Loading from '../../components/loading/loading.tsx';
-import Map from '../../components/map/map.tsx';
 import LocationsPanel from '../../components/locations-panel/locations-panel.tsx';
+import Map from '../../components/map/map.tsx';
 import OfferList from '../../components/offer-list/offer-list.tsx';
 import OffersNotFound from '../../components/offers-not-found/offers-not-found.tsx';
+import SortingOptions from '../../components/sorting/sorting.tsx';
+import { AppRoute, Sorting } from '../../const.ts';
+import { sortOffers } from '../../helpers/sorting-helper.ts';
+import { AppDispatch, RootState } from '../../store';
+import { selectOffersByCity } from '../../store/selectors/offersSelector.ts';
+import { CityType } from '../../types/city-type.ts';
 
 type MainProps = {
   cities: CityType[];
-}
+};
 
 export default function Main({ cities }: MainProps) {
-  const sorting = useSelector((state: RootState) => state.offers.sorting);
   const offers = useSelector(selectOffersByCity);
-  const sortedOffers = useMemo(() => sortOffers([...offers], sorting), [offers, sorting]);
   const [selectedOfferCardId, setSelectedOfferCardId] = useState('');
   const selectedOffer = offers.find((x) => x.id === selectedOfferCardId);
   const currentCity = useSelector((state: RootState) => state.locations.city);
   const loading = useSelector((state: RootState) => state.offers.loading);
+  const [currentSorting, setCurrentSorting] = useState(Sorting.Popular);
+  const sortedOffers = sortOffers([...offers], currentSorting);
   const dispatch = useDispatch<AppDispatch>();
 
-  const main = classNames(
-    'page__main',
-    'page__main--index', {
-      'page__main--index-empty': offers.length === 0,
-    }
-  );
+  const main = classNames('page__main', 'page__main--index', {
+    'page__main--index-empty': offers.length === 0,
+  });
 
-  const container = classNames(
-    'cities__places-container',
-    'container', {
-      'cities__places-container--empty': offers.length === 0,
-    }
-  );
+  const container = classNames('cities__places-container', 'container', {
+    'cities__places-container--empty': offers.length === 0,
+  });
 
   const places = classNames({
     'cities__no-places': offers.length === 0,
@@ -50,7 +45,7 @@ export default function Main({ cities }: MainProps) {
 
   useEffect(() => {
     if (!offers.length) {
-      dispatch(fetchOffersAction());
+      dispatch(getOffersAction());
     }
   }, [dispatch, offers.length]);
 
@@ -70,27 +65,31 @@ export default function Main({ cities }: MainProps) {
             <div className="cities">
               <div className={container}>
                 <section className={places}>
-                  {offers.length !== 0
-                    ?
+                  {offers.length !== 0 ? (
                     <>
                       <h2 className="visually-hidden">Places</h2>
                       <b className="places__found">
                         {offers.length} places to stay in {currentCity.name}
                       </b>
-                      <SortingOptions/>
+                      <SortingOptions
+                        currentSorting={currentSorting}
+                        onSortChange={(option) => setCurrentSorting(option)}
+                      />
                       <div className="cities__places-list places__list tabs__content">
-                        {loading
-                          ? <Loading/>
-                          :
+                        {loading ? (
+                          <Loading />
+                        ) : (
                           <OfferList
                             offers={sortedOffers}
                             stylesId={AppRoute.Root}
                             activeOfferCardIdDispatcher={setSelectedOfferCardId}
-                          />}
+                          />
+                        )}
                       </div>
                     </>
-                    :
-                    <OffersNotFound />}
+                  ) : (
+                    <OffersNotFound city={currentCity} />
+                  )}
                 </section>
                 <div className="cities__right-section">
                   <Map

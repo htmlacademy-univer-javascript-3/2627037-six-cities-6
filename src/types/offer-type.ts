@@ -18,4 +18,4 @@ export type OfferType = {
   host: UserViewType;
   images: string[];
   maxAdults: number;
-}
+};

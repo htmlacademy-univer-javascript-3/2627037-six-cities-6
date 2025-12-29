@@ -1,11 +1,12 @@
 import { memo } from 'react';
+
 import Logo from '../logo/logo.tsx';
 import NavigationPanel from '../navigation-panel/navigation-panel.tsx';
 
 type HeaderProps = {
   redirectHomeEnable?: boolean;
   hasNavigationPanel?: boolean;
-}
+};
 
 function Header({ redirectHomeEnable, hasNavigationPanel }: HeaderProps) {
   return (
@@ -13,7 +14,12 @@ function Header({ redirectHomeEnable, hasNavigationPanel }: HeaderProps) {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo placingType={'header'} link={redirectHomeEnable ? '/' : ''} width={81} height={41} />
+            <Logo
+              placingType={'header'}
+              link={redirectHomeEnable ? '/' : undefined}
+              width={81}
+              height={41}
+            />
           </div>
           {hasNavigationPanel && <NavigationPanel />}
         </div>

@@ -1,9 +1,10 @@
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { AppDispatch, RootState } from '../../store';
-import { loginAction } from '../../api/login.ts';
+
+import { loginAction } from '../../api/login/login.ts';
 import Header from '../../components/header/header.tsx';
+import { AppDispatch, RootState } from '../../store';
 import '../../../markup/css/main.css';
 
 export function Login() {
@@ -13,7 +14,7 @@ export function Login() {
   const user = useSelector((state: RootState) => state.users.user);
 
   if (user !== undefined) {
-    return (<Navigate to='/' />);
+    return <Navigate to="/" />;
   }
 
   const handleSubmit = (event: FormEvent) => {
@@ -46,8 +47,7 @@ export function Login() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                    >
-                    </input>
+                    ></input>
                   </div>
                   <div className="login__input-wrapper form__input-wrapper">
                     <label className="visually-hidden">Password</label>
@@ -59,15 +59,19 @@ export function Login() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                    >
-                    </input>
+                    ></input>
                   </div>
-                  <button className="login__submit form__submit button" type="submit">Sign in</button>
+                  <button
+                    className="login__submit form__submit button"
+                    type="submit"
+                  >
+                    Sign in
+                  </button>
                 </form>
               </section>
               <section className="locations locations--login locations--current">
                 <div className="locations__item">
-                  <Link to='/'>
+                  <Link to="/">
                     <a className="locations__item-link" href="/">
                       <span>Amsterdam</span>
                     </a>

@@ -1,4 +1,5 @@
-import { Dispatch, memo, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+
 import { OfferPreviewType } from '../../types/offer-preview-type.ts';
 import OfferCard from '../offer-card/offer-card.tsx';
 
@@ -6,9 +7,13 @@ type OfferListProps = {
   offers: OfferPreviewType[];
   stylesId: string;
   activeOfferCardIdDispatcher: Dispatch<SetStateAction<string>>;
-}
+};
 
-function OfferList({ offers, stylesId, activeOfferCardIdDispatcher }: OfferListProps) {
+export default function OfferList({
+  offers,
+  stylesId,
+  activeOfferCardIdDispatcher,
+}: OfferListProps) {
   return (
     <>
       {offers.map((offer) => (
@@ -22,7 +27,3 @@ function OfferList({ offers, stylesId, activeOfferCardIdDispatcher }: OfferListP
     </>
   );
 }
-
-const OfferListMemo = memo(OfferList);
-OfferListMemo.displayName = 'OfferListMemo';
-export default OfferListMemo;

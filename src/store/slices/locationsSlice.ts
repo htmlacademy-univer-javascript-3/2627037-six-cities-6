@@ -1,8 +1,9 @@
-import { Cities } from '../../const.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { changeCityHandler, changeLocationHandler } from '../action.ts';
+
+import { Cities } from '../../const.ts';
 import { CityType } from '../../types/city-type.ts';
 import { LocationType } from '../../types/location-type.ts';
+import { changeCityHandler, changeLocationHandler } from '../action.ts';
 
 interface LocationsState {
   city: CityType;
@@ -20,12 +21,18 @@ const locationsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(changeCityHandler, (state: LocationsState, action: PayloadAction<CityType>) => {
-        state.city = action.payload;
-      })
-      .addCase(changeLocationHandler, (state: LocationsState, action: PayloadAction<LocationType>) => {
-        state.location = action.payload;
-      });
+      .addCase(
+        changeCityHandler,
+        (state: LocationsState, action: PayloadAction<CityType>) => {
+          state.city = action.payload;
+        },
+      )
+      .addCase(
+        changeLocationHandler,
+        (state: LocationsState, action: PayloadAction<LocationType>) => {
+          state.location = action.payload;
+        },
+      );
   },
 });
 

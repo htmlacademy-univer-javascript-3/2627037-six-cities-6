@@ -1,13 +1,17 @@
+import classNames from 'classnames';
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
-import { changeCityHandler, changeLocationHandler } from '../../store/action.ts';
-import { CityType } from '../../types/city-type.ts';
+
 import { RootState } from '../../store';
+import {
+  changeCityHandler,
+  changeLocationHandler,
+} from '../../store/action.ts';
+import { CityType } from '../../types/city-type.ts';
 
 type LocationsPanelProps = {
   cities: CityType[];
-}
+};
 
 function LocationsPanel({ cities }: LocationsPanelProps) {
   const dispatch = useDispatch();
@@ -18,9 +22,9 @@ function LocationsPanel({ cities }: LocationsPanelProps) {
     dispatch(changeLocationHandler(city.location));
   };
 
-  const locationTabs = (city: CityType) => classNames(
-    'locations__item-link tabs__item', {
-      'tabs__item--active': city.name === currentCity.name
+  const locationTabs = (city: CityType) =>
+    classNames('locations__item-link tabs__item', {
+      'tabs__item--active': city.name === currentCity.name,
     });
 
   return (
@@ -29,7 +33,8 @@ function LocationsPanel({ cities }: LocationsPanelProps) {
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
             <li key={city.name} className="locations__item">
-              <a className={locationTabs(city)}
+              <a
+                className={locationTabs(city)}
                 href={city.name === currentCity.name ? undefined : '#'}
                 onClick={(e) => {
                   e.preventDefault();

@@ -1,31 +1,34 @@
-import { memo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { sortOffersHandler } from '../../store/action';
-import { Sorting } from '../../const.ts';
-import { RootState } from '../../store';
+import { useState } from 'react';
 
-function SortingOptions() {
-  const dispatch = useDispatch();
+import { Sorting } from '../../const.ts';
+
+type SortingOptionsProps = {
+  currentSorting: string;
+  onSortChange: (sorting: string) => void;
+};
+
+export default function SortingOptions({
+  currentSorting,
+  onSortChange,
+}: SortingOptionsProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const activeOption = useSelector((state: RootState) => state.offers.sorting);
 
   const toggleSortingOptionsMenu = () => {
     setIsOpen((menuOpened) => !menuOpened);
   };
 
   const handleSortingChange = (option: string) => {
-    dispatch(sortOffersHandler(option));
+    onSortChange(option);
   };
 
-  const placesOptions = classNames(
-    'places__options places__options--custom', {
-      'places__options--opened': isOpen,
-    });
+  const placesOptions = classNames('places__options places__options--custom', {
+    'places__options--opened': isOpen,
+  });
 
-  const placeOption = (option: string) => classNames(
-    'places__option', {
-      'places__option--active': option === activeOption,
+  const placeOption = (option: string) =>
+    classNames('places__option', {
+      'places__option--active': option === currentSorting,
     });
 
   return (
@@ -36,7 +39,7 @@ function SortingOptions() {
         tabIndex={0}
         onClick={toggleSortingOptionsMenu}
       >
-        {activeOption}
+        {currentSorting}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -54,13 +57,8 @@ function SortingOptions() {
           >
             {option}
           </li>
-        )
-        )}
+        ))}
       </ul>
     </form>
   );
 }
-
-const SortingOptionsMemo = memo(SortingOptions);
-SortingOptionsMemo.displayName = 'SortingOptionsMemo';
-export default SortingOptionsMemo;

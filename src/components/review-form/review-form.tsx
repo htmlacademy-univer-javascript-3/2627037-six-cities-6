@@ -1,7 +1,8 @@
 import { memo, SetStateAction, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { postCommentAction } from '../../api/comments/comments.ts';
 import { AppDispatch, RootState } from '../../store';
-import { postCommentAction } from '../../api/comments.ts';
 import '../../../markup/css/main.css';
 
 function ReviewForm() {
@@ -12,7 +13,9 @@ function ReviewForm() {
     setRating(value);
   };
 
-  const handleReviewChange = (event: { target: { value: SetStateAction<string> } }) => {
+  const handleReviewChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setReview(event.target.value);
   };
 
@@ -24,7 +27,13 @@ function ReviewForm() {
     if (!offer?.id) {
       return;
     }
-    dispatch(postCommentAction({ offerId: offer?.id, comment: review, rating: rating }));
+    dispatch(
+      postCommentAction({
+        offerId: offer?.id,
+        comment: review,
+        rating: rating,
+      }),
+    );
     setRating(0);
     setReview('');
   };
@@ -38,8 +47,15 @@ function ReviewForm() {
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit} action="#" method="post">
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+    <form
+      className="reviews__form form"
+      onSubmit={handleSubmit}
+      action="#"
+      method="post"
+    >
+      <label className="reviews__label form__label" htmlFor="review">
+        Your review
+      </label>
       <div className="reviews__rating-form form__rating">
         {[5, 4, 3, 2, 1].map((value) => (
           <>
@@ -71,8 +87,7 @@ function ReviewForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review}
         onChange={handleReviewChange}
-      >
-      </textarea>
+      ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}

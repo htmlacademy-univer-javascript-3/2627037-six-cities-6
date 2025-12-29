@@ -6,4 +6,4 @@ export type CommentType = {
   user: UserViewType;
   comment: string;
   rating: number;
-}
+};

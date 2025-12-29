@@ -1,14 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import {
-  fillOffersHandler,
-  invokeLoadingHandler, setupFavoriteOffersHandler,
-  setupNearOffersHandler,
-  setupOfferHandler,
-  sortOffersHandler, updateFavoriteOffersHandler
-} from '../action.ts';
-import { OfferPreviewType } from '../../types/offer-preview-type.ts';
+  changeFavoriteAction,
+  getFavoritesAction,
+} from '../../api/favorite/favorite.ts';
+import {
+  getNearOffersAction,
+  getOfferAction,
+  getOffersAction,
+} from '../../api/offers/offers.ts';
 import { Sorting } from '../../const.ts';
+import { OfferPreviewType } from '../../types/offer-preview-type.ts';
 import { OfferType } from '../../types/offer-type.ts';
+import { sortOffersHandler } from '../action.ts';
 
 interface OffersState {
   offers: OfferPreviewType[];
@@ -33,32 +37,65 @@ const offersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fillOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
-        state.offers = action.payload;
+      .addCase(
+        sortOffersHandler,
+        (state: OffersState, action: PayloadAction<string>) => {
+          state.sorting = action.payload;
+        },
+      )
+      .addCase(getOffersAction.pending, (state: OffersState) => {
+        state.loading = true;
       })
-      .addCase(sortOffersHandler, (state: OffersState, action: PayloadAction<string>) => {
-        state.sorting = action.payload;
+      .addCase(
+        getOffersAction.fulfilled,
+        (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
+          state.loading = false;
+          state.offers = action.payload;
+        },
+      )
+      .addCase(getOfferAction.pending, (state: OffersState) => {
+        state.loading = true;
       })
-      .addCase(invokeLoadingHandler, (state: OffersState, action: PayloadAction<boolean>) => {
-        state.loading = action.payload;
-      })
-      .addCase(setupOfferHandler, (state: OffersState, action: PayloadAction<OfferType | undefined>) => {
-        state.offer = action.payload;
-      })
-      .addCase(setupNearOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
-        state.nearOffers = action.payload;
-      })
-      .addCase(setupFavoriteOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
-        state.favoriteOffers = action.payload;
-      })
-      .addCase(updateFavoriteOffersHandler, (state: OffersState, action: PayloadAction<OfferPreviewType>) => {
-        const offerPresented = state.favoriteOffers.find((x) => x.id === action.payload.id);
-        if (offerPresented) {
-          state.favoriteOffers = state.favoriteOffers.filter((x) => x.id !== action.payload.id);
-        } else {
-          state.favoriteOffers.push(action.payload);
-        }
-      });
+      .addCase(
+        getOfferAction.fulfilled,
+        (state: OffersState, action: PayloadAction<OfferType | undefined>) => {
+          state.loading = false;
+          state.offer = action.payload;
+        },
+      )
+      .addCase(
+        getNearOffersAction.fulfilled,
+        (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
+          state.nearOffers = action.payload;
+        },
+      )
+      .addCase(
+        getFavoritesAction.fulfilled,
+        (state: OffersState, action: PayloadAction<OfferPreviewType[]>) => {
+          state.favoriteOffers = action.payload;
+        },
+      )
+      .addCase(
+        changeFavoriteAction.fulfilled,
+        (
+          state: OffersState,
+          action: PayloadAction<OfferPreviewType | undefined>,
+        ) => {
+          if (action.payload === undefined) {
+            return;
+          }
+          const offerPresented = state.favoriteOffers.find(
+            (x) => x.id === action.payload!.id,
+          );
+          if (offerPresented) {
+            state.favoriteOffers = state.favoriteOffers.filter(
+              (x) => x.id !== action.payload!.id,
+            );
+          } else {
+            state.favoriteOffers.push(action.payload);
+          }
+        },
+      );
   },
 });
 
